@@ -1,0 +1,97 @@
+//样式重置
+@import "normalize";
+//文字阴影,可以指定多组阴影
+//@right_left1 右边阴影为正数 左边负数
+//@bottom_top1 下边阴影为正数 上边负数
+//@text  阴影大小
+//@text_color 阴影颜色
+.textshadow(@right_left1:5px,@bottom_top1:5px,@text :5px,@tetx_color:#b6ebf7){
+  text-shadow:@arguments;
+}
+@keyframes login {
+  0%{
+    content: '.';
+  }
+  25%{
+    content: '..';
+  }
+  50%{
+    content: '...';
+  }
+  75%{
+    content: '....';
+  }
+  100%{
+    content: '.';
+  }
+}
+
+//模态框
+.modal{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  .content{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width:500px;
+    height:350px;
+    background: #EBF2F9;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    overflow: hidden;
+    .login_banner{
+      background: url("../resource/login.jpg");
+      .login_title{
+        line-height:215px;
+        text-align: center;
+        font-size:50px;
+        color: #fff;
+        .textshadow();
+      }
+      .login_info{
+        color: #eee;
+        text-align: center;
+        span::after{
+          content: '';
+          -webkit-animation:login 2s linear infinite;
+          -o-animation:login 2s linear infinite;
+          animation:login 2s linear infinite;
+        }
+      }
+    }
+    .login_form{
+      padding-top:25px;
+      text-align: center;
+      .login_input{
+        width:50%;
+        height:20px;
+        background: #fff;
+        padding:5px 10px;
+        border-radius: 5px;
+        border:1px solid #ccc;
+        margin-bottom:15px;
+      }
+      .login_btn{
+        display: block;
+        width:50%;
+        background: #09A3DC;
+        border-radius: 5px;
+        height:35px;
+        border:none;
+        color: #fff;
+        margin:0 auto;
+        &:hover{
+          background: #3CC3F5;
+        }
+      }
+    }
+  }
+}
