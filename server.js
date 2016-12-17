@@ -13,7 +13,6 @@ server.listen(80,function () {
     console.log('服务器开启,正在监听 80 端口.');
 });
 
-/*
 io.on('connection',function (socket) {
     //昵称设置
    socket.on('login',function (nickName) {
@@ -45,4 +44,4 @@ io.on('connection',function (socket) {
     socket.on('postImg',function (data,color) {
         socket.broadcast.emit('newImg',socket.nickName,data,color);
     })
-});*/
+});
