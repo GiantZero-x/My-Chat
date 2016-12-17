@@ -70,7 +70,7 @@ Chat.prototype = {
           $('.msgInput').focus();
       });
   //    接收系统信息
-        /*this.socket.on('系统',function (nickName,userCount,type) {
+        this.socket.on('系统',function (nickName,userCount,type) {
       //    判断用户是连接还是离开以显示不同的信息
           var msg = nickName + (type == 'login' ? '加入聊天室' : '离开聊天室');
           that._displayNewMsg('系统',msg,'red');
@@ -78,7 +78,7 @@ Chat.prototype = {
           $('#status').textContent = userCount + ' 位用户在线';
       });
   //    发送消息按钮
-      $('#sendBtn').on('click',function () {
+         /*$('#sendBtn').on('click',function () {
          var msgInput = $('#messageInput'),
              msg = msgInput.value,
              color = $('#colorStyle').value;

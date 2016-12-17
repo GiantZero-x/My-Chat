@@ -24,7 +24,7 @@ io.on('connection',function (socket) {
            users.push(nickName);
            socket.emit('loginSucc');
            //向所有在线客户端发送当前登陆的用户名
-           io.sockets.emit('系统',nickName,users.length,'login');
+           io.sockets.emit('sys',nickName,users.length,'login');
        }
        console.log(socket.nickName +　' 连接,目前共有' + users.length  + '人在线.');
    });
