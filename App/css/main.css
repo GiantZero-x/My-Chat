@@ -261,3 +261,21 @@ th {
 .modal .content .login_form .login_btn:hover {
   background: #3CC3F5;
 }
+.container {
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.container .header {
+  height: 80px;
+  background: repeating-radial-gradient();
+}
+.container .header .logo {
+  vertical-align: top;
+}
+.container .header .title {
+  font-size: 30px;
+  display: inline-block;
+  line-height: 80px;
+  margin-left: 30px;
+}
