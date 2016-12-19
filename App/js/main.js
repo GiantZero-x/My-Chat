@@ -34,7 +34,7 @@ Chat.prototype = {
         let that = this,
             name = '',  //用户名
             color = '#000', //字体颜色
-            reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]{0,15}$/,
+            reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]*$/,
             login_input = $('.login_input'),
             login_info = $('.login_info');
         //颜色改变事件
@@ -62,8 +62,10 @@ Chat.prototype = {
             if (!name) {
                 login_info.html('小白这个名字怎么样');
                 login_input.focus();
-            } else if (!isNaN(name[0])) {
-                login_info.html('数字可不能打头阵哦');
+            } else if(name.length >　16){
+                login_info.html('你这名字也忒长了');
+            }else if (!isNaN(name[0])) {
+                login_info.html('数字不可以打头阵');
             } else if (!reg.test(name)) {
                 login_info.html('除了字母、汉字或数字其他统统不要');
             } else {
@@ -180,7 +182,7 @@ Chat.prototype = {
         let container = $('.users');
         let html = '';
         for (let i = 0; i < users.length; i++) {
-            html += users[i] == me?`<li class="font_red">${users[i]}</li>`:`<li>${users[i]}</li>`;
+            html += users[i] == me?`<li class="font_red">${users[i]} (我)</li>`:`<li>${users[i]}</li>`;
         }
         container.html(html);
         $('.count span').html(users.length);
