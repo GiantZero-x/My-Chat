@@ -17,12 +17,12 @@ $('.login_input').keydown(function (e) {
 
 window.onload = function () {
     //实例并初始化my chat程序
-    var chat = new Chat();
+    let chat = new Chat();
     chat.init();
 };
 
 //定义Chat类
-var Chat = function(){
+let Chat = function(){
     this.socket = null;
 };
 
@@ -30,11 +30,11 @@ var Chat = function(){
 Chat.prototype = {
   //  初始化程序
   init:function () {
-      var that = this;
-      var name = '';
-      var reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]{0,15}$/;
-      var login_input = $('.login_input');
-      var login_info = $('.login_info');
+      let that = this;
+      let name = '';
+      let reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]{0,15}$/;
+      let login_input = $('.login_input');
+      let login_info = $('.login_info');
   //    建立到服务器的socket连接
       this.socket = io.connect();
   //    监听socket的connect事件,此事件表示连接已经建立
@@ -67,16 +67,17 @@ Chat.prototype = {
       this.socket.on('loginSucc',function () {
           document.title = 'Chat | ' + name;
           $('.modal').hide();
-          $('.container').show();
-          $('.msgInput').focus();
+          $('.stage').show();
+          $('.msg').focus();
       });
   //    接收系统信息
-        this.socket.on('系统',function (nickName,userCount,type) {
+        this.socket.on('sys',function (nickName,users,type) {
       //    判断用户是连接还是离开以显示不同的信息
-          var msg = nickName + (type == 'login' ? '加入聊天室' : '离开聊天室');
-          that._displayNewMsg('系统',msg,'red');
+          let msg = nickName + (type == 'login' ? ' 加入聊天室' : ' 离开聊天室');
+          that._displayNewMsg('系统',msg,'#000');
           //    将在线人数显示在页面顶部
-          $('#status').textContent = userCount + ' 位用户在线';
+          $('.count span').html(users.length);
+          that._dispalyUsers(users);
       });
   //    发送消息按钮
          /*$('#sendBtn').on('click',function () {
@@ -145,15 +146,35 @@ Chat.prototype = {
   },
 //  显示新消息
     _displayNewMsg:function (user,msg,color) {
-        var container = $('#historyMsg'),
-            msgToDisplay = document.createElement('p'),
-            date = new Date().toLocaleString();
-        msgToDisplay.style.color = color || '#000';
-        msgToDisplay.style.wordWrap = 'break-word';
+      let container = $('.article'),
+          Msg = container.html(),
+          userColor = '',
+          date = new Date().toLocaleString();
+      if(user == '系统'){
+          userColor = 'font_red';
+      }else if(user == '我'){
+          userColor = 'font_green' ;
+      }else{
+          userColor = 'font_blue';
+      }
+        Msg +=
+            `<div>
+              <h4 class="${userColor}">${user}<small>${date}</small></h4>
+              <p style="color:${color}">${msg}</p>
+            </div>`;
         //将消息中的表情转换为图片
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + ')：</span>' + this._showEmoji(msg);
-        container.appendChild(msgToDisplay);
-        container.scrollTop = container.scrollHeight;
+        //msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + ')：</span>' + this._showEmoji(msg);
+        container.html(Msg);
+        container[0].scrollTop = container[0].scrollHeight;
+    },
+//    更新用户列表
+    _dispalyUsers:function (users) {
+        let container = $('.users');
+        let html = '';
+        for(var i=0; i<users.length; i++){
+            html += `<li>${users[i]}</li>`;
+        }
+        container.html(html);
     },
 //    显示新图片
     _displayNewImg:function (user,img,color) {

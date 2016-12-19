@@ -13,61 +13,42 @@
 
 </head>
 <body>
-
-<!--<div class="wrapper">
-    &lt;!&ndash;头部&ndash;&gt;
-    <div class="banner">
-        <h1>HiChat :)</h1>
-        <span id="status"></span>
-    </div>
-    &lt;!&ndash;历史记录&ndash;&gt;
-    <div id="historyMsg">
-    </div>
-    &lt;!&ndash;控制器&ndash;&gt;
-    <div class="controls">
-        <div class="items">
-            <input id="colorStyle" type="color" placeHolder='#000' title="font color"/>
-            <input id="emoji" type="button" value="emoji" title="emoji"/>
-            <label for="sendImage" class="imageLable">
-                <input type="button" value="image"/>
-                <input id="sendImage" type="file" value="image"/>
-            </label>
-            <input id="clearBtn" type="button" value="clear" title="clear screen"/>
-        </div>
-        <textarea id="messageInput" placeHolder="enter to send"></textarea>
-        <input id="sendBtn" type="button" value="SEND">
-        <div id="emojiWrapper">
-        </div>
-    </div>
-</div>-->
-
-<!--<div id="loginWrapper">
-    <p id="info">connecting to server...</p>
-    <div id="nickWrapper">
-        <input type="text" placeHolder="nickname" id="nicknameInput"/>
-        <input type="button" value="OK" id="loginBtn"/>
-    </div>
-</div>-->
 <!--聊天窗口-->
-<div class="container" >
-    <div class="header">
-        <img src="resource/aa.jpg" alt="My Chat">
-        <span class="title">My Chat :)</span>
-    </div>
-    <div class="main">
-        <div class="section">
-            <div class="article">
-               <p>浪 <span>2016/11/6 11:02:02</span>fajlkdjfalk;djf;alkdsjf</p>
+<div class="stage" style="display: none;">
+    <div class="container" >
+        <div class="header">
+            <img src="resource/aa.jpg" alt="My Chat">
+            <span class="title">My Chat</span>
+        </div>
+        <div class="main">
+            <div class="section">
+                <div class="article"></div>
+                <div class="content_box">
+                    <p class="controls">
+                        <input class="color" type="color" placeholder="#000" title="设置字体颜色">
+                        <input class="emoji" type="button" value="表情" title="选择表情">
+                        <label for="img">
+                            <input type="button" value="图片" title="发送图片">
+                            <input id="img" type="file" value="图片" style="display: none;">
+                        </label>
+                    </p>
+                    <textarea class="msg"></textarea>
+                    <p class="controls2">
+                        <input type="button" value="发送" title="按Enter键发送消息">
+                        <input type="button" value="清空">
+                    </p>
+                </div>
             </div>
-            <div class="controls">
-
+            <div class="aside">
+                <p class="count">当前共 <span>5</span> 人在线</p>
+                <ul class="users"></ul>
             </div>
         </div>
-        <div class="aside"></div>
     </div>
 </div>
+
 <!--登陆模态框-->
-<div class="modal" style="display: none;">
+<div class="modal">
     <div class="content">
         <div class="login_banner">
             <div class="login_title">My Chat</div>

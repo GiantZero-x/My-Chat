@@ -1,183 +1,129 @@
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-html {
-  font-family: "microsoft yahei";
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  font-family: "Microsoft Yahei";
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 body {
-  margin: 0;
+  line-height: 1;
 }
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
+ol,
+ul {
+  list-style: none;
 }
-audio,
-canvas,
-progress,
-video {
-  display: inline-block;
-  vertical-align: baseline;
+blockquote,
+q {
+  quotes: none;
 }
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden],
-template {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
   display: none;
 }
-a {
-  background-color: transparent;
-}
-a:active,
-a:hover {
+/* remember to define focus styles! */
+:focus {
   outline: 0;
 }
-abbr[title] {
-  border-bottom: 1px dotted;
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
 }
-b,
-strong {
-  font-weight: bold;
+del {
+  text-decoration: line-through;
 }
-dfn {
-  font-style: italic;
-}
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 1em 40px;
-}
-hr {
-  box-sizing: content-box;
-  height: 0;
-}
-pre {
-  overflow: auto;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-button,
-input,
-optgroup,
-select,
-textarea {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-button {
-  overflow: visible;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-input {
-  line-height: normal;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-input[type="search"] {
-  -webkit-appearance: textfield;
-  box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-}
-optgroup {
-  font-weight: bold;
-}
+/* tables still need 'cellspacing="0"' in the markup */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-td,
-th {
-  padding: 0;
-}
-* {
+textarea {
+  resize: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: "Microsoft Yahei";
+}
+input {
+  font-family: "Microsoft Yahei";
+}
+.font_red {
+  color: red;
+}
+.font_green {
+  color: green;
+}
+.font_blue {
+  color: blue;
 }
 @keyframes login {
   0% {
@@ -248,7 +194,7 @@ th {
   background: #fff;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   margin-bottom: 15px;
 }
 .modal .content .login_form .login_btn {
@@ -264,45 +210,114 @@ th {
 .modal .content .login_form .login_btn:hover {
   background: #3CC3F5;
 }
-.container {
+.stage {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+.stage .container {
+  background: #fff;
   width: 80%;
-  margin: 20px auto;
-  border: 1px solid #ccc;
+  margin: 10px auto;
+  border: 1px solid #cccccc;
   border-radius: 5px;
 }
-.container .header {
-  border-bottom: 1px solid #ccc;
+.stage .container .header {
+  border-bottom: 1px solid #cccccc;
   padding: 5px;
 }
-.container .header img {
+.stage .container .header img {
   vertical-align: top;
 }
-.container .header .title {
+.stage .container .header .title {
   display: inline-block;
   font-size: 30px;
   line-height: 80px;
 }
-.container .main {
+.stage .container .main {
   width: 100%;
   height: 500px;
 }
-.container .main .section {
+.stage .container .main .section {
   width: 70%;
   height: 100%;
   float: left;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
 }
-.container .main .section .article {
+.stage .container .main .section .article {
   width: 100%;
   height: 70%;
-  border-bottom: 1px solid #ccc;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-bottom: 1px solid #cccccc;
 }
-.container .main .section .controls {
+.stage .container .main .section .article div {
+  padding: 5px;
+}
+.stage .container .main .section .article div h4 {
+  margin-bottom: 5px;
+}
+.stage .container .main .section .article div h4 small {
+  margin-left: 1em;
+  font-size: 0.8em;
+}
+.stage .container .main .section .article div p {
+  text-indent: 1em;
+  padding-left: 1em;
+}
+.stage .container .main .section .article div p img {
+  max-width: 99%;
+}
+.stage .container .main .section .content_box {
   width: 100%;
   height: 30%;
 }
-.container .main .aside {
+.stage .container .main .section .content_box .controls {
+  height: 30px;
+}
+.stage .container .main .section .content_box .controls input {
+  margin-left: 5px;
+}
+.stage .container .main .section .content_box textarea {
+  font-size: 16px;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  height: 85px;
+}
+.stage .container .main .section .content_box .controls2 input {
+  float: right;
+  margin-right: 10px;
+  padding: 2px 20px;
+  color: #fff;
+  border: 1px solid #357ebd;
+  border-radius: 4px;
+  background-color: #428bca;
+  cursor: pointer;
+}
+.stage .container .main .section .content_box .controls2 input:hover {
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
+.stage .container .main .aside {
   width: 30%;
   height: 100%;
   float: left;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.stage .container .main .aside .count {
+  margin: 5px 10px;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #cccccc;
+}
+.stage .container .main .aside .users {
+  padding: 0 15%;
+}
+.stage .container .main .aside .users li {
+  margin-top: 5px;
 }

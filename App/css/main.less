@@ -1,7 +1,14 @@
 //样式重置
 @import "normalize";
-*{
-  box-sizing: border-box;
+@border_color : #ccc;
+.font_red{
+  color: red;
+}
+.font_green{
+  color: green;
+}
+.font_blue{
+  color: blue;
 }
 //文字阴影,可以指定多组阴影
 //@right_left1 右边阴影为正数 左边负数
@@ -79,7 +86,7 @@
         background: #fff;
         padding:5px 10px;
         border-radius: 5px;
-        border:1px solid #ccc;
+        border:1px solid @border_color;
         margin-bottom:15px;
       }
       .login_btn{
@@ -100,45 +107,118 @@
 }
 
 //聊天窗口
-.container{
-  width:80%;
-  margin: 20px auto;
-  border:1px solid #ccc;
-  border-radius: 5px;
-  .header{
-    border-bottom:1px solid #ccc;
-    padding:5px;
-    img{
-      vertical-align: top;
-    }
-    .title{
-      display: inline-block;
-      font-size:30px;
-      line-height:80px;
-    }
-  }
-  .main{
-    width:100%;
-    height:500px;
-    .section{
-      width:70%;
-      height:100%;
-      float: left;
-      border-right:1px solid #ccc;
-      .article{
-        width:100%;
-        height:70%;
-        border-bottom:1px solid #ccc;
+.stage{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: #eee;
+  .container{
+    background: #fff;
+    width:80%;
+    margin: 10px auto;
+    border:1px solid @border_color;
+    border-radius: 5px;
+    .header{
+      border-bottom:1px solid @border_color;
+      padding:5px;
+      img{
+        vertical-align: top;
       }
-      .controls{
-        width:100%;
-        height:30%;
+      .title{
+        display: inline-block;
+        font-size:30px;
+        line-height:80px;
       }
     }
-    .aside{
-      width:30%;
-      height:100%;
-      float: left;
+    .main{
+      width:100%;
+      height:500px;
+      .section{
+        width:70%;
+        height:100%;
+        float: left;
+        border-right:1px solid @border_color;
+        .article{
+          width:100%;
+          height:70%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          border-bottom:1px solid @border_color;
+          div{
+            padding: 5px;
+            h4{
+              margin-bottom: 5px;
+              small{
+                margin-left: 1em;
+                font-size: 0.8em;
+              }
+            }
+            p{
+              text-indent: 1em;
+              padding-left: 1em;
+              img{
+                max-width:99%;
+              }
+            }
+          }
+
+        }
+        .content_box{
+          width:100%;
+          height:30%;
+          .controls{
+            height:30px;
+            input {
+              margin-left:5px;
+            }
+          }
+          textarea{
+            font-size:16px;
+            width:100%;
+            padding:5px 10px;
+            border:none;
+            height:85px;
+          }
+          .controls2{
+
+            input{
+              float: right;
+              margin-right:10px;
+              padding:2px 20px;
+              color: #fff;
+              border: 1px solid #357ebd;
+              border-radius: 4px;
+              background-color: #428bca;
+              cursor: pointer;
+              &:hover{
+                background-color: #3071a9;
+                border-color: #285e8e;
+              }
+            }
+          }
+        }
+      }
+      .aside{
+        width:30%;
+        height:100%;
+        float: left;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .count{
+          margin:5px 10px;
+          padding:10px 0;
+          text-align: center;
+          border-bottom:1px solid @border_color;
+        }
+        .users{
+          padding:0 15%;
+          li{
+            margin-top:5px;
+          }
+        }
+      }
     }
   }
 }

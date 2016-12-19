@@ -23,8 +23,8 @@ io.on('connection',function (socket) {
            socket.nickName = nickName;
            users.push(nickName);
            socket.emit('loginSucc');
-           //向所有在线客户端发送当前登陆的用户名
-           io.sockets.emit('sys',nickName,users.length,'login');
+           //向所有在线客户端发送当前登陆的用户名,状态以及用户列表
+           io.sockets.emit('sys',nickName,users,'login');
        }
        console.log(socket.nickName +　' 连接,目前共有' + users.length  + '人在线.');
    });
