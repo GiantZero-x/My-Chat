@@ -15,7 +15,7 @@
 <body>
 <!--聊天窗口-->
 <div class="stage" style="display: none;">
-    <div class="container" >
+    <div class="container">
         <div class="header">
             <img src="resource/aa.jpg" alt="My Chat">
             <span class="title">My Chat</span>
@@ -24,18 +24,19 @@
             <div class="section">
                 <div class="article"></div>
                 <div class="content_box">
-                    <p class="controls">
+                    <div class="controls">
+                        <div class="emoji_box"></div>
                         <input class="color" type="color" placeholder="#000" title="设置字体颜色">
                         <input class="emoji" type="button" value="表情" title="选择表情">
                         <label for="img">
                             <input type="button" value="图片" title="发送图片">
-                            <input id="img" type="file" value="图片" style="display: none;">
+                            <input id="img" type="file" value="图片">
                         </label>
-                    </p>
+                    </div>
                     <textarea class="msg"></textarea>
                     <p class="controls2">
-                        <input type="button" value="发送" title="按Enter键发送消息">
-                        <input type="button" value="清空">
+                        <input class="sent" type="button" value="发送" title="按Enter键发送消息">
+                        <input class="clear" type="button" value="清空">
                     </p>
                 </div>
             </div>

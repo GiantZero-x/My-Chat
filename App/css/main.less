@@ -1,104 +1,109 @@
 //样式重置
 @import "normalize";
-@border_color : #ccc;
-.font_red{
+
+@border_color: #ccc;
+.font_red {
   color: red;
 }
-.font_green{
+
+.font_green {
   color: green;
 }
-.font_blue{
+
+.font_blue {
   color: blue;
 }
+
 //文字阴影,可以指定多组阴影
 //@right_left1 右边阴影为正数 左边负数
 //@bottom_top1 下边阴影为正数 上边负数
 //@text  阴影大小
 //@text_color 阴影颜色
-.textshadow(@right_left1:5px,@bottom_top1:5px,@text :5px,@tetx_color:#b6ebf7){
-  text-shadow:@arguments;
+.textshadow(@right_left1:5px,@bottom_top1:5px,@text :5px,@tetx_color:#b6ebf7) {
+  text-shadow: @arguments;
 }
+
 @keyframes login {
-  0%{
+  0% {
     content: '.';
   }
-  25%{
+  25% {
     content: '..';
   }
-  50%{
+  50% {
     content: '...';
   }
-  75%{
+  75% {
     content: '....';
   }
-  100%{
+  100% {
     content: '.';
   }
 }
 
 //模态框
-.modal{
+.modal {
   position: absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  .content{
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .content {
     position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    margin:auto;
-    width:500px;
-    height:350px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 500px;
+    height: 350px;
     background: #EBF2F9;
-    -webkit-border-radius:3px;
-    -moz-border-radius:3px;
-    border-radius:3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     overflow: hidden;
-    .login_banner{
+    .login_banner {
       background: url("../resource/login.jpg");
-      .login_title{
-        line-height:215px;
+      .login_title {
+        line-height: 215px;
         text-align: center;
-        font-size:50px;
+        font-size: 50px;
         color: #fff;
         .textshadow();
       }
-      .login_info{
+      .login_info {
         color: #eee;
         text-align: center;
-        span::after{
+        span::after {
           content: '';
-          -webkit-animation:login 2s linear infinite;
-          -o-animation:login 2s linear infinite;
-          animation:login 2s linear infinite;
+          -webkit-animation: login 2s linear infinite;
+          -o-animation: login 2s linear infinite;
+          animation: login 2s linear infinite;
         }
       }
     }
-    .login_form{
-      padding-top:25px;
+    .login_form {
+      padding-top: 25px;
       text-align: center;
-      .login_input{
-        width:50%;
-        height:20px;
+      .login_input {
+        width: 50%;
+        height: 20px;
         background: #fff;
-        padding:5px 10px;
+        padding: 5px 10px;
         border-radius: 5px;
-        border:1px solid @border_color;
-        margin-bottom:15px;
+        border: 1px solid @border_color;
+        margin-bottom: 15px;
       }
-      .login_btn{
+      .login_btn {
         display: block;
-        width:50%;
+        width: 50%;
         background: #09A3DC;
         border-radius: 5px;
-        height:35px;
-        border:none;
+        height: 35px;
+        border: none;
         color: #fff;
-        margin:0 auto;
-        &:hover{
+        margin: 0 auto;
+        &:hover {
           background: #3CC3F5;
         }
       }
@@ -107,92 +112,117 @@
 }
 
 //聊天窗口
-.stage{
+.stage {
   position: absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: #eee;
-  .container{
+  .container {
     background: #fff;
-    width:80%;
+    width: 80%;
     margin: 10px auto;
-    border:1px solid @border_color;
+    border: 1px solid @border_color;
     border-radius: 5px;
-    .header{
-      border-bottom:1px solid @border_color;
-      padding:5px;
-      img{
+    .header {
+      border-bottom: 1px solid @border_color;
+      padding: 5px;
+      img {
         vertical-align: top;
       }
-      .title{
+      .title {
         display: inline-block;
-        font-size:30px;
-        line-height:80px;
+        font-size: 30px;
+        line-height: 80px;
       }
     }
-    .main{
-      width:100%;
-      height:500px;
-      .section{
-        width:70%;
-        height:100%;
+    .main {
+      width: 100%;
+      height: 500px;
+      .section {
+        width: 70%;
+        height: 100%;
         float: left;
-        border-right:1px solid @border_color;
-        .article{
-          width:100%;
-          height:70%;
+        border-right: 1px solid @border_color;
+        .article {
+          width: 100%;
+          height: 70%;
           overflow-x: hidden;
           overflow-y: auto;
-          border-bottom:1px solid @border_color;
-          div{
+          border-bottom: 1px solid @border_color;
+          div {
             padding: 5px;
-            h4{
+            h4 {
               margin-bottom: 5px;
-              small{
+              small {
                 margin-left: 1em;
                 font-size: 0.8em;
               }
             }
-            p{
+            p {
               text-indent: 1em;
               padding-left: 1em;
-              img{
-                max-width:99%;
+              img {
+                max-width: 99%;
               }
             }
           }
 
         }
-        .content_box{
-          width:100%;
-          height:30%;
-          .controls{
-            height:30px;
+        .content_box {
+          width: 100%;
+          height: 30%;
+          .controls {
+            height: 30px;
+            position: relative;
             input {
-              margin-left:5px;
+              margin-left: 5px;
+            }
+            #img {
+              width: 42px;
+              position: relative;
+              left: -53px;
+              top: -1px;
+              opacity: 0;
+            }
+            .emoji_box{
+              display: none;
+              width: 500px;
+              bottom: 35px;
+              position: absolute;
+              background-color: #aaa;
+              box-shadow: 0 0 10px #555;
+              img{
+                margin:2px;
+                padding: 2px;
+                width: 25px;
+                height: 25px;
+                &:hover{
+                  background: blue;
+                }
+              }
             }
           }
-          textarea{
-            font-size:16px;
-            width:100%;
-            padding:5px 10px;
-            border:none;
-            height:85px;
+          textarea {
+            font-size: 16px;
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            height: 85px;
           }
-          .controls2{
-
-            input{
+          .controls2 {
+            overflow: hidden;
+            input {
               float: right;
-              margin-right:10px;
-              padding:2px 20px;
+              margin-right: 10px;
+              padding: 2px 20px;
               color: #fff;
               border: 1px solid #357ebd;
               border-radius: 4px;
               background-color: #428bca;
               cursor: pointer;
-              &:hover{
+              &:hover {
                 background-color: #3071a9;
                 border-color: #285e8e;
               }
@@ -200,22 +230,22 @@
           }
         }
       }
-      .aside{
-        width:30%;
-        height:100%;
+      .aside {
+        width: 30%;
+        height: 100%;
         float: left;
         overflow-x: hidden;
         overflow-y: auto;
-        .count{
-          margin:5px 10px;
-          padding:10px 0;
+        .count {
+          margin: 5px 10px;
+          padding: 10px 0;
           text-align: center;
-          border-bottom:1px solid @border_color;
+          border-bottom: 1px solid @border_color;
         }
-        .users{
-          padding:0 15%;
-          li{
-            margin-top:5px;
+        .users {
+          padding: 0 15%;
+          li {
+            margin-top: 5px;
           }
         }
       }

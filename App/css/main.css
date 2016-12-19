@@ -277,9 +277,34 @@ input {
 }
 .stage .container .main .section .content_box .controls {
   height: 30px;
+  position: relative;
 }
 .stage .container .main .section .content_box .controls input {
   margin-left: 5px;
+}
+.stage .container .main .section .content_box .controls #img {
+  width: 42px;
+  position: relative;
+  left: -53px;
+  top: -1px;
+  opacity: 0;
+}
+.stage .container .main .section .content_box .controls .emoji_box {
+  display: none;
+  width: 500px;
+  bottom: 35px;
+  position: absolute;
+  background-color: #aaa;
+  box-shadow: 0 0 10px #555;
+}
+.stage .container .main .section .content_box .controls .emoji_box img {
+  margin: 2px;
+  padding: 2px;
+  width: 25px;
+  height: 25px;
+}
+.stage .container .main .section .content_box .controls .emoji_box img:hover {
+  background: blue;
 }
 .stage .container .main .section .content_box textarea {
   font-size: 16px;
@@ -287,6 +312,9 @@ input {
   padding: 5px 10px;
   border: none;
   height: 85px;
+}
+.stage .container .main .section .content_box .controls2 {
+  overflow: hidden;
 }
 .stage .container .main .section .content_box .controls2 input {
   float: right;
