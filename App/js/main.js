@@ -67,6 +67,7 @@ Chat.prototype = {
       this.socket.on('loginSucc',function () {
           document.title = 'Chat | ' + name;
           $('.modal').hide();
+          $('.container').show();
           $('.msgInput').focus();
       });
   //    接收系统信息
