@@ -6,11 +6,13 @@
 $('.login_input').keydown(function (e) {
     if (e.keyCode == 13) {
         $('.login_btn').trigger('click');
+        e.preventDefault();
     }
 });
 $('.msg').keydown(function (e) {
     if (e.keyCode == 13) {
         $('.sent').trigger('click');
+        e.preventDefault();
     }
 });
 
