@@ -7,7 +7,8 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     port = 80,
     users = []; //保存所有在线用户的昵称
-
+//socket配置
+io.set('log level',0);
 server.listen(port, function () {
     console.log('服务器开启,正在监听 ' + port + ' 端口.');
 });
@@ -46,5 +47,9 @@ io.on('connection', function (socket) {
 //    接收用户输入状态
     socket.on('typing', function (status) {
         socket.broadcast.emit('typing', socket.nickName, status);
+    });
+//    接收用户抖动请求
+    socket.on('shake',function () {
+        socket.broadcast.emit('shake',socket.nickName);
     });
 });

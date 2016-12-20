@@ -1,5 +1,6 @@
 //样式重置
 @import "normalize";
+@import "_animation";
 
 @border_color: #ccc;
 .font_red {
@@ -21,6 +22,11 @@
 //@text_color 阴影颜色
 .textshadow(@right_left1:5px,@bottom_top1:5px,@text :5px,@tetx_color:#000) {
   text-shadow: @arguments;
+}
+.shake{
+  .tada();
+  .animation(tada 1s ease-in-out);
+
 }
 
 @keyframes login {
@@ -74,9 +80,7 @@ html,body{
         color: #eee;
         span::after {
           content: '';
-          -webkit-animation: login 2s linear infinite;
-          -o-animation: login 2s linear infinite;
-          animation: login 2s linear infinite;
+          .animation(login 2s linear infinite);
         }
       }
     }
@@ -123,6 +127,7 @@ html,body{
     margin: 10px auto;
     border: 1px solid @border_color;
     border-radius: 5px;
+
     .header {
       border-bottom: 1px solid @border_color;
       padding: 5px;

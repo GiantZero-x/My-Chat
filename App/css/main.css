@@ -125,6 +125,127 @@ input {
 .font_blue {
   color: blue;
 }
+.shake {
+  -webkit-animation: tada 1s ease-in-out;
+  -moz-animation: tada 1s ease-in-out;
+  -ms-animation: tada 1s ease-in-out;
+  animation: tada 1s ease-in-out;
+}
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+  }
+}
+@-moz-keyframes tada {
+  0% {
+    -moz-transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    -moz-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    -moz-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    -moz-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -moz-transform: scale3d(1, 1, 1);
+  }
+}
+@-o-keyframes tada {
+  0% {
+    -o-transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    -o-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    -o-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    -o-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -o-transform: scale3d(1, 1, 1);
+  }
+}
+@-ms-keyframes tada {
+  0% {
+    -ms-transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    -ms-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -ms-transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes tada {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
 @keyframes login {
   0% {
     content: '.';
@@ -180,7 +301,8 @@ body {
 .modal .content .login_banner .login_info span::after {
   content: '';
   -webkit-animation: login 2s linear infinite;
-  -o-animation: login 2s linear infinite;
+  -moz-animation: login 2s linear infinite;
+  -ms-animation: login 2s linear infinite;
   animation: login 2s linear infinite;
 }
 .modal .content .login_form {

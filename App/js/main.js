@@ -40,6 +40,11 @@ Chat.prototype = {
         $('.clear').click(function () {
             msgArea.val('').focus();
         });
+        //    窗口抖动
+        $('.shake_btn').click(function () {
+            that.socket.emit('shake');
+            that._displayNewMsg('我',' 发送了一个窗口抖动');
+        });
         //    退出登陆
         $('.close').click(function () {
             location.reload('true');
@@ -67,7 +72,6 @@ Chat.prototype = {
             msgArea.val('');
             msgArea.focus();
             if (msg.trim().length != 0) {
-
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('我', msg, color);
             }
@@ -219,6 +223,14 @@ Chat.prototype = {
 
             });
         });
+        //   监听抖动
+        this.socket.on('shake',function (user) {
+            $('.container').addClass('shake');
+            setTimeout(function () {
+                $('.container').removeClass('shake');
+            },1000);
+            that._displayNewMsg('系统',user + ' 发送了一个窗口抖动');
+        });
     },
 //    显示新消息
     _displayNewMsg: function (user, msg, color) {
@@ -227,7 +239,7 @@ Chat.prototype = {
             userColor = '',
             date = new Date().toLocaleString();
         if (!color) {
-            color = '#000';
+            color = '#333;font-size:80%';
         }
         if (user == '系统') {
             userColor = 'font_red';
