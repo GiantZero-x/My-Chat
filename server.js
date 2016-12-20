@@ -1,17 +1,18 @@
 /**
  * Created by GiantR on 2016/12/15.
  */
-var ex = require('express'),
-    app = ex(),
+var express = require('express'),
+    app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    //保存所有在线用户的昵称
-    users = [];
+    port = 80,
+    users = []; //保存所有在线用户的昵称
 
-app.use('/', ex.static(__dirname + '/App'));
-server.listen(80, function () {
-    console.log('服务器开启,正在监听 80 端口.');
+server.listen(port, function () {
+    console.log('服务器开启,正在监听 ' + port + ' 端口.');
 });
+//配置路由
+app.use(express.static(__dirname + '/App'));
 
 io.on('connection', function (socket) {
     //昵称设置
@@ -41,5 +42,9 @@ io.on('connection', function (socket) {
 //    接收图片消息
     socket.on('postImg', function (data) {
         socket.broadcast.emit('newImg', socket.nickName, data);
-    })
+    });
+//    接收用户输入状态
+    socket.on('typing', function (status) {
+        socket.broadcast.emit('typing', socket.nickName, status);
+    });
 });

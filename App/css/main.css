@@ -67,7 +67,7 @@ td {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
-  font-family: "Microsoft Yahei";
+  font-family: "Microsoft Yahei", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -142,41 +142,40 @@ input {
     content: '.';
   }
 }
+html,
+body {
+  height: 100%;
+}
 .modal {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 100%;
+  position: relative;
 }
 .modal .content {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -175px;
+  margin-left: -250px;
   width: 500px;
   height: 350px;
   background: #EBF2F9;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .modal .content .login_banner {
   background: url("../resource/login.jpg");
+  text-align: center;
 }
 .modal .content .login_banner .login_title {
   line-height: 215px;
-  text-align: center;
-  font-size: 50px;
+  font-size: 300%;
   color: #fff;
-  text-shadow: 5px 5px 5px #b6ebf7;
+  text-shadow: 5px 5px 5px #000000;
 }
 .modal .content .login_banner .login_info {
   color: #eee;
-  text-align: center;
 }
 .modal .content .login_banner .login_info span::after {
   content: '';
