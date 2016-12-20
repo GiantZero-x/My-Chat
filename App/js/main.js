@@ -2,20 +2,6 @@
  * Created by GiantR on 2016/12/15.
  */
 
-// 快捷操作
-$('.login_input').keydown(function (e) {
-    if (e.keyCode == 13) {
-        $('.login_btn').trigger('click');
-        e.preventDefault();
-    }
-});
-$('.msg').keydown(function (e) {
-    if (e.keyCode == 13) {
-        $('.sent').trigger('click');
-        e.preventDefault();
-    }
-});
-
 window.onload = function () {
     //实例并初始化my chat程序
     let chat = new Chat();
@@ -29,7 +15,7 @@ let Chat = function () {
 
 //向原型添加业务方法
 Chat.prototype = {
-    //  初始化程序
+//  初始化程序
     init: function () {
         let that = this,
             name = '',  //用户名
@@ -37,12 +23,12 @@ Chat.prototype = {
             reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]*$/,
             login_input = $('.login_input'),
             login_info = $('.login_info');
-        //颜色改变事件
+        //    颜色改变事件
         $('.color').change(function () {
             color = this.value;
             $('.msg').css('color', color).focus();
         });
-        // 清空输入框
+        //    清空输入框
         $('.clear').click(function () {
             $('.msg').val('').focus();
         });
@@ -62,9 +48,9 @@ Chat.prototype = {
             if (!name) {
                 login_info.html('小白这个名字怎么样');
                 login_input.focus();
-            } else if(name.length >　16){
+            } else if (name.length > 16) {
                 login_info.html('你这名字也忒长了');
-            }else if (!isNaN(name[0])) {
+            } else if (!isNaN(name[0])) {
                 login_info.html('数字不可以打头阵');
             } else if (!reg.test(name)) {
                 login_info.html('除了字母、汉字或数字其他统统不要');
@@ -83,16 +69,27 @@ Chat.prototype = {
             $('.stage').show();
             $('.msg').focus();
         });
-
         //    接收系统信息
         this.socket.on('sys', function (nickName, users, type) {
             //    判断用户是连接还是离开以显示不同的信息
             let msg = nickName + (type == 'login' ? ' 加入聊天室' : ' 离开聊天室');
             that._displayNewMsg('系统', msg);
             //    将在线用户显示在侧边栏
-            that._dispalyUsers(users,name);
+            that._dispalyUsers(users, name);
         });
-
+        //    快捷操作
+        login_input.keydown(function (e) {
+            if (e.keyCode == 13) {
+                $('.login_btn').trigger('click');
+                e.preventDefault();
+            }
+        });
+        $('.msg').keydown(function (e) {
+            if (e.keyCode == 13) {
+                $('.sent').trigger('click');
+                e.preventDefault();
+            }
+        });
         //    发送消息按钮
         $('.sent').click(function () {
             let msgArea = $('.msg'),
@@ -139,7 +136,7 @@ Chat.prototype = {
             $('.emoji_box').show();
             e.stopPropagation();
         });
-        //点击其他区域表情框消失
+        //    点击其他区域表情框消失
         $('body').click(function (e) {
             let emojiBox = $('.emoji_box');
             if (e.target != emojiBox[0]) {
@@ -178,11 +175,11 @@ Chat.prototype = {
         container[0].scrollTop = container[0].scrollHeight;
     },
 //    更新用户列表
-    _dispalyUsers: function (users,me) {
+    _dispalyUsers: function (users, me) {
         let container = $('.users');
         let html = '';
         for (let i = 0; i < users.length; i++) {
-            html += users[i] == me?`<li class="font_red">${users[i]} (我)</li>`:`<li>${users[i]}</li>`;
+            html += users[i] == me ? `<li class="font_red">${users[i]} (我)</li>` : `<li>${users[i]}</li>`;
         }
         container.html(html);
         $('.count span').html(users.length);
