@@ -77,6 +77,9 @@ Chat.prototype = {
             }
         });
         //    发送图片
+        $('.img').click(function () {
+            $('#img').trigger('click');
+        });
         $('#img').on('change', function () {
             if (this.files.length != 0) {
                 //获取文件并用filereader进行读取

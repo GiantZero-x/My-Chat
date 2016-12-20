@@ -293,7 +293,7 @@ body {
   line-height: 215px;
   font-size: 300%;
   color: #fff;
-  text-shadow: 5px 5px 5px #000000;
+  text-shadow: 5px 5px 5px #000;
 }
 .modal .content .login_banner .login_info {
   color: #eee;
@@ -315,7 +315,7 @@ body {
   background: #fff;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   margin-bottom: 15px;
 }
 .modal .content .login_form .login_btn {
@@ -343,11 +343,11 @@ body {
   background: #fff;
   width: 80%;
   margin: 10px auto;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 .stage .container .header {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
   padding: 5px;
 }
 .stage .container .header img {
@@ -366,14 +366,14 @@ body {
   width: 70%;
   height: 100%;
   float: left;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
 }
 .stage .container .main .section .article {
   width: 100%;
   height: 70%;
   overflow-x: hidden;
   overflow-y: auto;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .stage .container .main .section .article div {
   padding: 5px;
@@ -408,7 +408,7 @@ body {
   position: relative;
   left: -53px;
   top: -1px;
-  opacity: 0;
+  display: none;
 }
 .stage .container .main .section .content_box .controls .emoji_box {
   display: none;
@@ -462,7 +462,7 @@ body {
   margin: 5px 10px;
   padding: 10px 0;
   text-align: center;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .stage .container .main .aside .users {
   padding: 0 15%;
