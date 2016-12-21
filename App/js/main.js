@@ -61,16 +61,26 @@ Chat.prototype = {
         });
         //    字体加粗
         $('.font_weight').click(function () {
-            that._changeFont(this, 'font-weight', 'bold', 'normal');
+            _changeFont(this, 'font_weight', 'bold', 'normal');
         });
         //    字体倾斜
         $('.font_style').click(function () {
-            that._changeFont(this, 'font-style', 'italic', 'normal');
+            _changeFont(this, 'font_style', 'italic', 'normal');
         });
         //    字体下划线
         $('.font_underline').click(function () {
-            that._changeFont(this, 'text-decoration', 'underline', 'none');
+            _changeFont(this, 'text_decoration', 'underline', 'none');
         });
+        //    改变字体
+        function _changeFont(self, styleName, active, normal) {
+            $(self).toggleClass('active');
+            if ($(self).hasClass('active')) {
+                font[styleName] = active;
+            } else {
+                font[styleName] = normal;
+            }
+            msgArea.css(styleName.replace('_','-'), font[styleName]);
+        }
 
         //    调用表情初始化方法
         this._initialEmoji();
@@ -118,7 +128,7 @@ Chat.prototype = {
         //    窗口抖动
         $('.shake_btn').click(function () {
             that.socket.emit('shake');
-            that._displayNewMsg('我', ' 发送了一个窗口抖动');
+            that._displayNewMsg('我', '"发送了一个窗口抖动"');
         });
 
         //    正在输入
@@ -257,22 +267,12 @@ Chat.prototype = {
             that._displayNewMsg('系统', user + ' 发送了一个窗口抖动');
         });
     },
-//    改变字体
-    _changeFont: function (self, styleName, active, normal) {
-        $(self).toggleClass('active');
-        if ($(self).hasClass('active')) {
-            font[styleName] = active;
-        } else {
-            font[styleName] = normal;
-        }
-        msgArea.css(styleName, font[styleName]);
-    },
 //    显示新消息
     _displayNewMsg: function (user, msg, font) {
         var container = $('.article'),
             userColor = '',
             date = new Date().toLocaleString();
-        if (user == '系统') {
+        if (user == '系统'|| msg == '"发送了一个窗口抖动"') {
             userColor = 'font_red';
             font = {
                 color: '#666', //颜色
