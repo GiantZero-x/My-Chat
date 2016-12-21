@@ -26,7 +26,10 @@
 .shake{
   .tada();
   .animation(tada 1s ease-in-out);
-
+}
+.newMsg{
+  .lightSpeedInLeft();
+  .animation(lightSpeedInLeft 0.5s ease-in-out);
 }
 
 @keyframes login {
@@ -181,6 +184,9 @@ html,body{
             position: relative;
             input {
               margin-left: 5px;
+            }
+            .active{
+              background-color: #bbb;
             }
             #img {
               width: 42px;

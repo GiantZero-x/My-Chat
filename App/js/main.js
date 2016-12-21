@@ -20,42 +20,29 @@ Chat.prototype = {
         //初始化变量
         var that = this,
             userName = '',  //用户名
-            color = '#000', //字体颜色
+            font = {
+                color: '#000', //颜色
+                font_weight: 'normal', //粗细
+                font_style: 'normal',  //倾斜
+                text_decoration: 'none',    //下划线
+                font_size: '16px', //字号
+                font_family: 'Microsoft Yahei' //字体
+            },
             typing = false, //输入状态
             lastTyping, //上次输入时间
             TYPING_TIMER_LENGTH = 500,  //输入延时
-            reg = /^[a-zA-Z\u4e00-\u9fa5][\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
+            reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
             currentInput = login_input = $('.login_input').focus(),    //用户名输入框
             login_info = $('.login_info'),  //登陆信息框
             msgArea = $('.msg');    //信息输入框
 
         //页面事件
-
-        //    颜色改变
-        $('.color').change(function () {
-            color = this.value;
-            msgArea.css('color', color).focus();
-        });
-        //    清空输入
-        $('.clear').click(function () {
-            msgArea.val('').focus();
-        });
-        //    窗口抖动
-        $('.shake_btn').click(function () {
-            that.socket.emit('shake');
-            that._displayNewMsg('我',' 发送了一个窗口抖动');
-        });
-        //    退出登陆
-        $('.close').click(function () {
-            location.reload('true');
-        });
         //    昵称设置的确定按钮
         $('.login_btn').click(function () {
             userName = login_input.val().trim();
             //   检查昵称输入框是否为空
             if (!userName) {
                 login_info.html('小白这个名字怎么样');
-                login_input.focus();
             } else if (userName.length > 16) {
                 login_info.html('你这名字也忒长了');
             } else if (!isNaN(userName[0])) {
@@ -66,16 +53,44 @@ Chat.prototype = {
                 that.socket.emit('login', userName);
             }
         });
-        //    发送消息按钮
-        $('.sent').click(function () {
-            var msg = msgArea.val();
-            msgArea.val('');
-            msgArea.focus();
-            if (msg.trim().length != 0) {
-                that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('我', msg, color);
+
+        //    颜色改变
+        $('.color').change(function () {
+            font.color = this.value;
+            msgArea.css('color', font.color).focus();
+        });
+        //    字体加粗
+        $('.font_weight').click(function () {
+            that._changeFont(this, 'font-weight', 'bold', 'normal');
+        });
+        //    字体倾斜
+        $('.font_style').click(function () {
+            that._changeFont(this, 'font-style', 'italic', 'normal');
+        });
+        //    字体下划线
+        $('.font_underline').click(function () {
+            that._changeFont(this, 'text-decoration', 'underline', 'none');
+        });
+
+        //    调用表情初始化方法
+        this._initialEmoji();
+        $('.emoji').click(function (e) {
+            $('.emoji_box').show();
+            e.stopPropagation();
+        });
+        //    点击其他区域表情框消失
+        $('body').click(function (e) {
+            var emojiBox = $('.emoji_box');
+            if (e.target != emojiBox[0]) {
+                emojiBox.hide();
             }
         });
+        //    表情被点击事件
+        $('.emoji_box').on('click', 'img', function () {
+            msgArea.focus();
+            msgArea.val(msgArea.val() + '[emoji:' + this.title + ']');
+        });
+
         //    发送图片
         $('.img').click(function () {
             $('#img').trigger('click');
@@ -99,24 +114,13 @@ Chat.prototype = {
                 reader.readAsDataURL(file);
             }
         });
-        //    调用表情初始化方法
-        this._initialEmoji();
-        $('.emoji').click(function (e) {
-            $('.emoji_box').show();
-            e.stopPropagation();
+
+        //    窗口抖动
+        $('.shake_btn').click(function () {
+            that.socket.emit('shake');
+            that._displayNewMsg('我', ' 发送了一个窗口抖动');
         });
-        //    点击其他区域表情框消失
-        $('body').click(function (e) {
-            var emojiBox = $('.emoji_box');
-            if (e.target != emojiBox[0]) {
-                emojiBox.hide();
-            }
-        });
-        //    表情被点击事件
-        $('.emoji_box').on('click', 'img', function () {
-            msgArea.focus();
-            msgArea.val(msgArea.val() + '[emoji:' + this.title + ']');
-        });
+
         //    正在输入
         msgArea.on('input', function () {
             var self = that;
@@ -134,6 +138,24 @@ Chat.prototype = {
                     typing = false;
                 }
             }, TYPING_TIMER_LENGTH);
+        });
+        //    退出登陆
+        $('.close').click(function () {
+            location.reload('true');
+        });
+        //    清空输入
+        $('.clear').click(function () {
+            msgArea.val('').focus();
+        });
+        //    发送消息按钮
+        $('.sent').click(function () {
+            var msg = msgArea.val();
+            msgArea.val('');
+            msgArea.focus();
+            if (msg.trim().length != 0) {
+                that.socket.emit('postMsg', msg, font);
+                that._displayNewMsg('我', msg, font);
+            }
         });
 
         //快捷操作
@@ -203,8 +225,8 @@ Chat.prototype = {
             that._dispalyUsers(users, userName);
         });
         //    接收新消息
-        this.socket.on('newMsg', function (user, msg, color) {
-            that._displayNewMsg(user, msg, color);
+        this.socket.on('newMsg', function (user, msg, font) {
+            that._displayNewMsg(user, msg, font);
         });
         //    接收图片
         this.socket.on('newImg', function (user, img) {
@@ -227,37 +249,56 @@ Chat.prototype = {
             });
         });
         //   监听抖动
-        this.socket.on('shake',function (user) {
+        this.socket.on('shake', function (user) {
             $('.container').addClass('shake');
             setTimeout(function () {
                 $('.container').removeClass('shake');
-            },1000);
-            that._displayNewMsg('系统',user + ' 发送了一个窗口抖动');
+            }, 1000);
+            that._displayNewMsg('系统', user + ' 发送了一个窗口抖动');
         });
     },
+//    改变字体
+    _changeFont: function (self, styleName, active, normal) {
+        $(self).toggleClass('active');
+        if ($(self).hasClass('active')) {
+            font[styleName] = active;
+        } else {
+            font[styleName] = normal;
+        }
+        msgArea.css(styleName, font[styleName]);
+    },
 //    显示新消息
-    _displayNewMsg: function (user, msg, color) {
+    _displayNewMsg: function (user, msg, font) {
         var container = $('.article'),
-            Msg = container.html(),
             userColor = '',
             date = new Date().toLocaleString();
-        if (!color) {
-            color = '#333;font-size:80%';
-        }
         if (user == '系统') {
             userColor = 'font_red';
+            font = {
+                color: '#666', //颜色
+                font_weight: 'normal', //粗细
+                font_style: 'normal',  //倾斜
+                text_decoration: 'none',    //下划线
+                font_size: '80%', //字号
+                font_family: 'Microsoft Yahei' //字体
+            }
         } else if (user == '我') {
             userColor = 'font_green';
         } else {
             userColor = 'font_blue';
         }
-        Msg +=
-            `<div>
+        var div = document.createElement('div');
+        div.className = 'newMsg';
+        div.innerHTML = `
               <h4 class="${userColor}">${user}<small>${date}</small></h4>
-              <p style="color:${color}">${this._showEmoji(msg)}</p>
-            </div>`;
-        container.html(Msg);
+              <p style="color:${font.color};font-weight:${font.font_weight};font-style: ${font.font_style};text-decoration: ${font.text_decoration};font-size: ${font.font_size};">
+                ${this._showEmoji(msg)}
+              </p>`;
+        container.append(div);
         container[0].scrollTop = container[0].scrollHeight;
+        setTimeout(function () {
+            div.removeAttribute('class');
+        },500);
     },
 //    更新用户列表
     _dispalyUsers: function (users, me) {
