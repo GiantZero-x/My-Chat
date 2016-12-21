@@ -50,6 +50,6 @@ io.on('connection', function (socket) {
     });
 //    接收用户抖动请求
     socket.on('shake',function () {
-        socket.broadcast.emit('shake',socket.nickName);
+        io.sockets.emit('shake',socket.nickName);
     });
 });
