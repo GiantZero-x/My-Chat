@@ -31,6 +31,7 @@ Chat.prototype = {
             typing = false, //输入状态
             lastTyping, //上次输入时间
             TYPING_TIMER_LENGTH = 500,  //输入延时
+            isShake = true,
             reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
             currentInput = login_input = $('.login_input').focus(),    //用户名输入框
             login_info = $('.login_info'),  //登陆信息框
@@ -137,7 +138,10 @@ Chat.prototype = {
         //    窗口抖动
         $('.shake_btn').click(function () {
             that.socket.emit('shake');
-            that._displayNewMsg('我', '"发送了一个窗口抖动"');
+        });
+        //    取消抖动
+        $('#no_shake').on('change',function () {
+            isShake = !$(this).is(':checked');
         });
 
         //    正在输入
@@ -269,20 +273,25 @@ Chat.prototype = {
         });
         //   监听抖动
         this.socket.on('shake', function (user) {
+            if(user == userName){user = '我'}
+            that._displayNewMsg('系统', user + ' 发送了一个窗口抖动');
+            if(!isShake){return}
             $('.container').addClass('shake');
             setTimeout(function () {
                 $('.container').removeClass('shake');
             }, 1000);
-            that._displayNewMsg('系统', user + ' 发送了一个窗口抖动');
+            if(user == userName){return}
         });
     },
 //    显示新消息
     _displayNewMsg: function (user, msg, font) {
         var container = $('.article'),
             userColor = '',
-            date = new Date().toLocaleString();
-        if (user == '系统'|| msg == '"发送了一个窗口抖动"') {
+            date = new Date().toLocaleString(),
+            div = document.createElement('div');
+        if (user == '系统' || msg == '"发送了一个窗口抖动"') {
             userColor = 'font_red';
+            div.className = 'sysMsg';
             font = {
                 color: '#666', //颜色
                 font_weight: 'normal', //粗细
@@ -296,8 +305,7 @@ Chat.prototype = {
         } else {
             userColor = 'font_blue';
         }
-        var div = document.createElement('div');
-        div.className = 'newMsg';
+        div.className += ' newMsg';
         div.innerHTML = `
               <h4 class="${userColor}">${user}<small>${date}</small></h4>
               <p style="color:${font.color};
@@ -311,7 +319,7 @@ Chat.prototype = {
         container.append(div);
         container[0].scrollTop = container[0].scrollHeight;
         setTimeout(function () {
-            div.removeAttribute('class');
+            $(div).removeClass(' newMsg');
         },500);
     },
 //    更新用户列表
