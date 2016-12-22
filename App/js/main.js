@@ -327,7 +327,7 @@ Chat.prototype = {
         var container = $('.users');
         var html = '';
         for (var i = 0; i < users.length; i++) {
-            html += users[i] == me ? `<li class="font_red">${users[i]}</li>` : `<li>${users[i]}<span  style="display:none"> (正在输入)</span></li>`;
+            html += users[i] == me ? `<li class="font_red">${users[i]}</li>` : `<li><a href="#">${users[i]}<span  style="display:none"> (正在输入)</span></a></li>`;
         }
         container.html(html);
         $('.count span').html(users.length);

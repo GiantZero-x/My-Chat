@@ -31,6 +31,14 @@
   .lightSpeedInLeft();
   .animation(lightSpeedInLeft 0.5s ease-in-out);
 }
+.bgFadeInLeft{
+  .fadeInLeft();
+  .animation(fadeInLeft 1s ease-in-out);
+}
+.bgFadeInRight{
+  .fadeInRight();
+  .animation(fadeInRight 1s ease-in-out);
+}
 
 @keyframes login {
   0% {
@@ -123,11 +131,12 @@ html,body{
   bottom: 0;
   left: 0;
   right: 0;
-  background: #eee;
+  background-image: url('../resource/stage_bg/Tulips.jpg');
+  background-size: 100% 100%;
   .container {
-    background: #fff;
+    background: rgba(214,214,214,0.7);
     width: 80%;
-    margin: 10px auto;
+    margin: 70px auto;
     border: 1px solid @border_color;
     border-radius: 5px;
 
@@ -164,8 +173,8 @@ html,body{
               font-size: 50%;
               width: 40%;
               color: #666;
-              margin: 0 auto;
-              background-color: #ddd;
+              margin: 5px auto;
+              background-color: #C0F1F9;
               border-radius: 15px;
             }
             h4 {
@@ -236,6 +245,7 @@ html,body{
             padding: 5px 10px;
             border: none;
             height: 85px;
+            background-color: transparent;
           }
           .controls2 {
             overflow: hidden;
