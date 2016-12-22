@@ -26,14 +26,36 @@
                 <div class="content_box">
                     <div class="controls">
                         <div class="emoji_box"></div>
-                        <div class="font_size_box"></div>
-                        <div class="font_family_box"></div>
+                        <select class="font_size">
+                            <option value="12">12</option>
+                            <option value="14">14</option>
+                            <option value="16" selected>16</option>
+                            <option value="18">18</option>
+                            <option value="20">20</option>
+                            <option value="22">22</option>
+                            <option value="24">24</option>
+                            <option value="26">26</option>
+                            <option value="28">28</option>
+                            <option value="30">30</option>
+                        </select>
+                        <select class="font_family">
+                            <option value="Arial">Arial</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Helvetica">Helvetica</option>
+                            <option value="Lucida ">Lucida Family</option>
+                            <option value="Tahoma">Tahoma</option>
+                            <option value="Trebuchet ">Trebuchet MS</option>
+                            <option value="Times">Times</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="宋体">宋体</option>
+                            <option value="黑体">黑体</option>
+                            <option value="华文细黑">华文细黑</option>
+                            <option value="Microsoft Yahei" selected>微软雅黑</option>
+                        </select>
                         <input class="color" type="color" placeholder="#000" title="设置字体颜色">
                         <input class="font_weight" type="button" value="B" title="设置加粗">
                         <input class="font_style" type="button" value="I" title="设置斜体">
-                        <input class="font_underline" type="button" value="U" title="设置下划线">
-                        <input class="font_size" type="button" value="字号" title="设置字体大小">
-                        <input class="font_family" type="button" value="字体" title="设置字体">
+                        <input class="font_decoration" type="button" value="U" title="设置下划线">
                         <input class="emoji" type="button" value="表情" title="选择表情">
                         <label for="img">
                             <input class="img" type="button" value="图片" title="发送图片">

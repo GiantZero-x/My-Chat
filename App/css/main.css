@@ -71,6 +71,7 @@ td {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-text-size-adjust: none;
 }
 body {
   line-height: 1;
@@ -502,8 +503,7 @@ body {
   font-size: 0.8em;
 }
 .stage .container .main .section .article div p {
-  text-indent: 1em;
-  padding-left: 1em;
+  padding-left: 15px;
 }
 .stage .container .main .section .article div p img {
   max-width: 99%;
@@ -516,11 +516,21 @@ body {
   height: 30px;
   position: relative;
 }
-.stage .container .main .section .content_box .controls input {
+.stage .container .main .section .content_box .controls input,
+.stage .container .main .section .content_box .controls select {
   margin-left: 5px;
 }
 .stage .container .main .section .content_box .controls .active {
   background-color: #bbb;
+}
+.stage .container .main .section .content_box .controls .font_weight {
+  font-weight: bold;
+}
+.stage .container .main .section .content_box .controls .font_style {
+  font-style: italic;
+}
+.stage .container .main .section .content_box .controls .font_decoration {
+  text-decoration: underline;
 }
 .stage .container .main .section .content_box .controls #img {
   width: 42px;

@@ -53,7 +53,16 @@ Chat.prototype = {
                 that.socket.emit('login', userName);
             }
         });
-
+        //    字号改变
+        $('.font_size').on('change',function () {
+            font.font_size = this.value +　'px';
+            msgArea.css('font-size', font.font_size).focus();
+        });
+        //    字体改变
+        $('.font_family').on('change',function () {
+            font.font_family = this.value;
+            msgArea.css('font-family', font.font_family).focus();
+        });
         //    颜色改变
         $('.color').change(function () {
             font.color = this.value;
@@ -68,7 +77,7 @@ Chat.prototype = {
             _changeFont(this, 'font_style', 'italic', 'normal');
         });
         //    字体下划线
-        $('.font_underline').click(function () {
+        $('.font_decoration').click(function () {
             _changeFont(this, 'text_decoration', 'underline', 'none');
         });
         //    改变字体
@@ -279,7 +288,7 @@ Chat.prototype = {
                 font_weight: 'normal', //粗细
                 font_style: 'normal',  //倾斜
                 text_decoration: 'none',    //下划线
-                font_size: '80%', //字号
+                font_size: '14px', //字号
                 font_family: 'Microsoft Yahei' //字体
             }
         } else if (user == '我') {
@@ -291,7 +300,12 @@ Chat.prototype = {
         div.className = 'newMsg';
         div.innerHTML = `
               <h4 class="${userColor}">${user}<small>${date}</small></h4>
-              <p style="color:${font.color};font-weight:${font.font_weight};font-style: ${font.font_style};text-decoration: ${font.text_decoration};font-size: ${font.font_size};">
+              <p style="color:${font.color};
+                        font-weight:${font.font_weight};
+                        font-style: ${font.font_style};
+                        text-decoration: ${font.text_decoration};
+                        font-size: ${font.font_size};
+                        font-family: ${font.font_family};">
                 ${this._showEmoji(msg)}
               </p>`;
         container.append(div);
@@ -353,7 +367,7 @@ Chat.prototype = {
             if (emojiIndex > totalEmojiNum) {
                 result = result.replace(match[0], '[X]');
             } else {
-                result = result.replace(match[0], `<img class="emoji" src="../resource/emoji/${emojiIndex}.gif"/>`);
+                result = result.replace(match[0], ` <img class="emoji" src="../resource/emoji/${emojiIndex}.gif"/> `);
             }
         }
         return result;
