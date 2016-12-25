@@ -588,13 +588,14 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url('../resource/stage_bg/Tulips.jpg');
+  background-image: url('../resource/stage_bg/1.jpg');
   background-size: 100% 100%;
 }
 .stage .container {
   background: rgba(214, 214, 214, 0.7);
   width: 80%;
-  margin: 70px auto;
+  margin: 10px auto 0;
+  min-width: 900px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -604,6 +605,7 @@ body {
 }
 .stage .container .header img {
   vertical-align: top;
+  border-radius: 5px;
 }
 .stage .container .header .title {
   display: inline-block;
