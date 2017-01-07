@@ -29,13 +29,16 @@ Chat.prototype = {
                 font_family: 'Microsoft Yahei' //字体
             },
             typing = false, //输入状态
-            lastTyping, //上次输入时间
+            lastTypingTime, //上次输入时间
             TYPING_TIMER_LENGTH = 500,  //输入延时
             isShake = true,
             reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
             currentInput = login_input = $('.login_input').focus(),    //用户名输入框
             login_info = $('.login_info'),  //登陆信息框
-            msgArea = $('.msg');    //信息输入框
+            msgArea = $('.msg'),    //信息输入框
+            bgTotalNum = 6,  //背景图总数
+            bgNum = 1,
+            bgFlag = true;
 
         //页面事件
         //    昵称设置的确定按钮
@@ -54,6 +57,28 @@ Chat.prototype = {
                 that.socket.emit('login', userName);
             }
         });
+        //    切换背景事件
+        $('.bgChange_box').on('click','span',function () {
+            if(!bgFlag){return;}
+            bgFlag = false;
+            if(this.className == 'forward'){//向前
+                if(bgNum == 1){
+                    bgNum = bgTotalNum;
+                }else{
+                    bgNum--;
+                }
+            }else{  //向后
+                if(bgNum == bgTotalNum){
+                    bgNum = 1;
+                }else{
+                    bgNum++;
+                }
+            }
+            $('div.stage').css('background-image','url("../resource/stage_bg/' + bgNum + '.jpg")');
+            setTimeout(function () {
+               bgFlag = true;
+            },500);
+        });
         //    字号改变
         $('.font_size').on('change',function () {
             font.font_size = this.value +　'px';
@@ -65,20 +90,25 @@ Chat.prototype = {
             msgArea.css('font-family', font.font_family).focus();
         });
         //    颜色改变
-        $('.color').change(function () {
+        $('span.sprite-color').click(function () {
+            $(this).addClass('active');
+            $('#font_color').trigger('click');
+        });
+        $('#font_color').change(function () {
+            $('span.sprite-color').removeClass('active');
             font.color = this.value;
             msgArea.css('color', font.color).focus();
         });
         //    字体加粗
-        $('.font_weight').click(function () {
+        $('span.sprite-bold').click(function () {
             _changeFont(this, 'font_weight', 'bold', 'normal');
         });
         //    字体倾斜
-        $('.font_style').click(function () {
+        $('span.sprite-italic').click(function () {
             _changeFont(this, 'font_style', 'italic', 'normal');
         });
         //    字体下划线
-        $('.font_decoration').click(function () {
+        $('span.sprite-underline').click(function () {
             _changeFont(this, 'text_decoration', 'underline', 'none');
         });
         //    改变字体
@@ -94,7 +124,8 @@ Chat.prototype = {
 
         //    调用表情初始化方法
         this._initialEmoji();
-        $('.emoji').click(function (e) {
+        $('span.sprite-emoji').click(function (e) {
+            $(this).addClass('active');
             $('.emoji_box').show();
             e.stopPropagation();
         });
@@ -103,6 +134,7 @@ Chat.prototype = {
             var emojiBox = $('.emoji_box');
             if (e.target != emojiBox[0]) {
                 emojiBox.hide();
+                $('span.sprite-emoji').removeClass('active');
             }
         });
         //    表情被点击事件
@@ -112,10 +144,12 @@ Chat.prototype = {
         });
 
         //    发送图片
-        $('.img').click(function () {
+        $('span.sprite-pic').click(function () {
+            $(this).addClass('active');
             $('#img').trigger('click');
         });
         $('#img').on('change', function () {
+            $('span.sprite-pic').removeClass('active');
             if (this.files.length != 0) {
                 //获取文件并用filereader进行读取
                 var file = this.files[0],
@@ -136,12 +170,17 @@ Chat.prototype = {
         });
 
         //    窗口抖动
-        $('.shake_btn').click(function () {
+        $('span.sprite-shake').click(function () {
+            $(this).addClass('active');
             that.socket.emit('shake');
+            setTimeout(function () {
+                $('span.sprite-shake').removeClass('active');
+            },1000);
         });
         //    取消抖动
-        $('#no_shake').on('change',function () {
-            isShake = !$(this).is(':checked');
+        $('span.sprite-ban').on('click',function () {
+            $(this).toggleClass('active');
+            isShake = !$(this).is('.active');
         });
 
         //    正在输入
@@ -234,6 +273,7 @@ Chat.prototype = {
         this.socket.on('loginSucc', function () {
             $('.article').html('');
             document.title = 'Chat | ' + userName;
+            $('span.title').html('My Chat - <small>' + userName + '</small>');
             $('.modal').fadeOut();
             $('.stage').fadeIn();
             currentInput = msgArea;

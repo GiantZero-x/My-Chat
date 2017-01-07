@@ -137,23 +137,74 @@ input {
 .font_cornflowerblue {
   color: cornflowerblue;
 }
-.scroll_bar {
-  overflow-y: scroll;
-  overflow-x: hidden;
+.sprite {
+  background-image: url(../resource/icons/icon_list_gray.png);
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  display: inline-block;
+  transition: all 0.3s linear;
+}
+.sprite.active {
+  background-image: url(../resource/icons/icon_list_black.png);
+}
+.sprite-ban {
+  background-position: -5px -5px;
+}
+.sprite-bold {
+  background-position: -35px -5px;
+}
+.sprite-clear {
+  background-position: -65px -5px;
+}
+.sprite-color {
+  background-position: -5px -35px;
+}
+.sprite-emoji {
+  background-position: -35px -36px;
+}
+.sprite-family {
+  background-position: -65px -35px;
+}
+.sprite-github {
+  width: 30px;
+  height: 30px;
+  background-position: -5px -65px;
+}
+.sprite-italic {
+  background-position: -45px -66px;
+}
+.sprite-left {
+  background-position: -75px -65px;
+}
+.sprite-pic {
+  background-position: -95px -5px;
+}
+.sprite-right {
+  background-position: -95px -35px;
+}
+.sprite-shake {
+  background-position: -105px -65px;
+}
+.sprite-size {
+  background-position: -45px -95px;
+}
+.sprite-underline {
+  background-position: -75px -95px;
 }
 .scroll_bar::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 18px;
+  height: 18px;
 }
 .scroll_bar::-webkit-scrollbar-track {
-  background-color: #eee;
+  background-color: #888;
 }
 .scroll_bar::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #666;
   border-radius: 5px;
 }
 .scroll_bar::-webkit-scrollbar-button {
-  background-color: #ddd;
+  background-color: #444;
 }
 .shake {
   -webkit-animation: tada 1s ease-in-out;
@@ -544,6 +595,7 @@ input {
 html,
 body {
   height: 100%;
+  background: url("../resource/stage_bg/fullbody.png") 100% 100%;
 }
 .modal {
   height: 100%;
@@ -617,14 +669,22 @@ body {
   right: 0;
   background-image: url('../resource/stage_bg/1.jpg');
   background-size: 100% 100%;
+  transition: all 0.4s linear;
+  overflow: auto;
 }
 .stage .container {
   background: rgba(0, 0, 0, 0.5);
   width: 80%;
-  margin: 10px auto 0;
+  margin: auto;
   min-width: 900px;
   border-radius: 5px;
   overflow: hidden;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  min-height: 626px;
 }
 .stage .container .header {
   padding: 5px;
@@ -640,36 +700,65 @@ body {
   line-height: 80px;
   color: #fff;
 }
+.stage .container .header .title small {
+  text-shadow: 0 0 6px snow, 0 0 6px snow, 0 0 6px snow, 0 0 3px snow;
+}
+.stage .container .header .bgChange_box {
+  float: right;
+  line-height: 75px;
+  height: 80px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  width: 200px;
+  overflow: hidden;
+}
+.stage .container .header .bgChange_box:hover {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+.stage .container .header .bgChange_box span {
+  float: left;
+  width: 50%;
+  font-size: 40px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  height: 100%;
+  text-align: center;
+}
+.stage .container .header .bgChange_box span:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.stage .container .header .bgChange_box span.forward {
+  border-right: 1px solid #888;
+}
 .stage .container .main {
   width: 100%;
-  height: 500px;
+  height: calc(100% - 90px);
 }
 .stage .container .main .section {
   width: 70%;
   height: 100%;
   float: left;
-  border-right: 1px solid #ccc;
 }
 .stage .container .main .section .article {
   width: 100%;
   height: 78%;
-  overflow-y: auto;
-  overflow-y: scroll;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 .stage .container .main .section .article::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 18px;
+  height: 18px;
 }
 .stage .container .main .section .article::-webkit-scrollbar-track {
-  background-color: #eee;
+  background-color: #888;
 }
 .stage .container .main .section .article::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #666;
   border-radius: 5px;
 }
 .stage .container .main .section .article::-webkit-scrollbar-button {
-  background-color: #ddd;
+  background-color: #444;
 }
 .stage .container .main .section .article div {
   padding: 5px;
@@ -711,32 +800,14 @@ body {
   width: 100%;
   height: 22%;
   background: linear-gradient(#555, #222);
+  position: relative;
 }
 .stage .container .main .section .content_box .controls {
   height: 30px;
+  line-height: 35px;
   position: relative;
-}
-.stage .container .main .section .content_box .controls input,
-.stage .container .main .section .content_box .controls select {
-  margin-left: 5px;
-}
-.stage .container .main .section .content_box .controls .active {
-  background-color: #bbb;
-}
-.stage .container .main .section .content_box .controls .font_weight {
-  font-weight: bold;
-}
-.stage .container .main .section .content_box .controls .font_style {
-  font-style: italic;
-}
-.stage .container .main .section .content_box .controls .font_decoration {
-  text-decoration: underline;
 }
 .stage .container .main .section .content_box .controls #img {
-  width: 42px;
-  position: relative;
-  left: -53px;
-  top: -1px;
   display: none;
 }
 .stage .container .main .section .content_box .controls .emoji_box {
@@ -756,6 +827,102 @@ body {
 .stage .container .main .section .content_box .controls .emoji_box img:hover {
   background: blue;
 }
+.stage .container .main .section .content_box .controls .font_select_box {
+  position: absolute;
+  bottom: 30px;
+  border: 1px solid #666;
+  background: rgba(88, 88, 88, 0.6);
+}
+.stage .container .main .section .content_box .controls .font_select_box li {
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #666;
+  padding: 0 5px;
+  cursor: pointer;
+  height: 36px;
+}
+.stage .container .main .section .content_box .controls .font_select_box li:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(88, 88, 88, 0.8);
+}
+.stage .container .main .section .content_box .controls .font_select_box li.active {
+  color: #fff;
+}
+.stage .container .main .section .content_box .controls .font_select_box li:first-child {
+  border-top: none;
+}
+.stage .container .main .section .content_box .controls .font_family_box {
+  position: absolute;
+  bottom: 30px;
+  border: 1px solid #666;
+  background: rgba(88, 88, 88, 0.6);
+  left: 10px;
+}
+.stage .container .main .section .content_box .controls .font_family_box li {
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #666;
+  padding: 0 5px;
+  cursor: pointer;
+  height: 36px;
+}
+.stage .container .main .section .content_box .controls .font_family_box li:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(88, 88, 88, 0.8);
+}
+.stage .container .main .section .content_box .controls .font_family_box li.active {
+  color: #fff;
+}
+.stage .container .main .section .content_box .controls .font_family_box li:first-child {
+  border-top: none;
+}
+.stage .container .main .section .content_box .controls .font_size_box {
+  position: absolute;
+  bottom: 30px;
+  border: 1px solid #666;
+  background: rgba(88, 88, 88, 0.6);
+  display: none;
+  left: 5px;
+}
+.stage .container .main .section .content_box .controls .font_size_box li {
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #666;
+  padding: 0 5px;
+  cursor: pointer;
+  height: 36px;
+}
+.stage .container .main .section .content_box .controls .font_size_box li:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(88, 88, 88, 0.8);
+}
+.stage .container .main .section .content_box .controls .font_size_box li.active {
+  color: #fff;
+}
+.stage .container .main .section .content_box .controls .font_size_box li:first-child {
+  border-top: none;
+}
+.stage .container .main .section .content_box .controls .font_color_box {
+  position: absolute;
+  bottom: 30px;
+  border: 1px solid #666;
+  background: rgba(88, 88, 88, 0.6);
+  display: none;
+}
+.stage .container .main .section .content_box .controls .font_color_box li {
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #666;
+  padding: 0 5px;
+  cursor: pointer;
+  height: 36px;
+}
+.stage .container .main .section .content_box .controls .font_color_box li:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(88, 88, 88, 0.8);
+}
+.stage .container .main .section .content_box .controls .font_color_box li.active {
+  color: #fff;
+}
+.stage .container .main .section .content_box .controls .font_color_box li:first-child {
+  border-top: none;
+}
 .stage .container .main .section .content_box textarea {
   font-size: 16px;
   width: 97%;
@@ -763,12 +930,15 @@ body {
   margin: 0 auto 3px;
   border-radius: 5px;
   border: none;
-  height: 52px;
+  height: calc(100% - 61px);
   background: #f9f9f9;
   display: block;
 }
 .stage .container .main .section .content_box .controls2 {
   overflow: hidden;
+  position: absolute;
+  bottom: 3px;
+  width: 100%;
 }
 .stage .container .main .section .content_box .controls2 input {
   float: right;
@@ -803,8 +973,9 @@ body {
   padding: 0 15%;
   height: 30px;
   line-height: 30px;
-  background: linear-gradient(#FBEFE0, #FFF1BF);
-  border-top: 1px solid #e3e3e3;
+  background: linear-gradient(#eee, #ddd);
+  border-top: 1px solid #888;
+  overflow: hidden;
 }
 .stage .container .main .aside .users li:first-child {
   border-top: none;

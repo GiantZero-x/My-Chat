@@ -3,6 +3,7 @@
 @import "_animation";
 
 @border_color: #ccc;
+//颜色
 .font_red {
   color: red;
 }
@@ -19,35 +20,106 @@
   color: purple;
 }
 
-.font_darkcyan{
+.font_darkcyan {
   color: darkcyan;
 }
 
-.font_cornflowerblue{
+.font_cornflowerblue {
   color: cornflowerblue;
+}
+
+//图标
+
+.sprite {
+  background-image: url(../resource/icons/icon_list_gray.png);
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  display: inline-block;
+  transition: all 0.3s linear;
+  &.active {
+    background-image: url(../resource/icons/icon_list_black.png);
+  }
+
+}
+
+.sprite-ban {
+  background-position: -5px -5px;
+}
+
+.sprite-bold {
+  background-position: -35px -5px;
+}
+
+.sprite-clear {
+  background-position: -65px -5px;
+}
+
+.sprite-color {
+  background-position: -5px -35px;
+}
+
+.sprite-emoji {
+  background-position: -35px -36px;
+}
+
+.sprite-family {
+  background-position: -65px -35px;
+}
+
+.sprite-github {
+  width: 30px;
+  height: 30px;
+  background-position: -5px -65px;
+}
+
+.sprite-italic {
+  background-position: -45px -66px;
+}
+
+.sprite-left {
+  background-position: -75px -65px;
+}
+
+.sprite-pic {
+  background-position: -95px -5px;
+}
+
+.sprite-right {
+  background-position: -95px -35px;
+}
+
+.sprite-shake {
+  background-position: -105px -65px;
+}
+
+.sprite-size {
+  background-position: -45px -95px;
+}
+
+.sprite-underline {
+  background-position: -75px -95px;
 }
 
 //自定滚动条样式
 .scroll_bar {
-  overflow-y: scroll;
-  overflow-x: hidden;
   // 设置垂直滚动条的宽度和水平滚动条的高度
   &::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 18px;
+    height: 18px;
   }
   // 设置滚动条的滑轨
   &::-webkit-scrollbar-track {
-    background-color: #eee;
+    background-color: #888;
   }
   // 滑块
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #666;
     border-radius: 5px;
   }
   // 滑轨两头的监听按钮
   &::-webkit-scrollbar-button {
-    background-color: #ddd;
+    background-color: #444;
   }
   // 横向滚动条和纵向滚动条相交处尖角
   &::-webkit-scrollbar-corner {
@@ -63,19 +135,23 @@
 .textshadow(@right_left1:5px,@bottom_top1:5px,@text :5px,@tetx_color:#000) {
   text-shadow: @arguments;
 }
-.shake{
+
+.shake {
   .tada();
   .animation(tada 1s ease-in-out);
 }
-.newMsg{
+
+.newMsg {
   .lightSpeedInLeft();
   .animation(lightSpeedInLeft 0.5s ease-in-out);
 }
-.bgFadeInLeft{
+
+.bgFadeInLeft {
   .fadeInLeft();
   .animation(fadeInLeft 1s ease-in-out);
 }
-.bgFadeInRight{
+
+.bgFadeInRight {
   .fadeInRight();
   .animation(fadeInRight 1s ease-in-out);
 }
@@ -98,19 +174,21 @@
   }
 }
 
-html,body{
-  height:100%;
+html, body {
+  height: 100%;
+  background: url("../resource/stage_bg/fullbody.png") 100% 100%;
 }
+
 //模态框
 .modal {
-  height:100%;
+  height: 100%;
   position: relative;
   .content {
     position: absolute;
     top: 50%;
-    left:50%;
-    margin-top:-175px;
-    margin-left:-250px;
+    left: 50%;
+    margin-top: -175px;
+    margin-left: -250px;
     width: 500px;
     height: 350px;
     background: #EBF2F9;
@@ -173,17 +251,24 @@ html,body{
   right: 0;
   background-image: url('../resource/stage_bg/1.jpg');
   background-size: 100% 100%;
+  transition: all 0.4s linear;
+  overflow: auto;
   .container {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     width: 80%;
-    margin: 10px auto 0;
-    min-width:900px;
+    margin: auto;
+    min-width: 900px;
     border-radius: 5px;
     overflow: hidden;
-
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    min-height: 626px;
     .header {
       padding: 5px;
-      background: linear-gradient(#555,#222);
+      background: linear-gradient(#555, #222);
       img {
         vertical-align: top;
         border-radius: 5px;
@@ -193,16 +278,46 @@ html,body{
         font-size: 30px;
         line-height: 80px;
         color: #fff;
+        small {
+          text-shadow: 0 0 6px snow, 0 0 6px snow, 0 0 6px snow, 0 0 3px snow;
+        }
+      }
+      .bgChange_box {
+        float: right;
+        line-height: 75px;
+        height: 80px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        width: 200px;
+        overflow: hidden;
+        &:hover {
+          border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        span {
+          float: left;
+          width: 50%;
+          font-size: 40px;
+          font-weight: bold;
+          color: rgba(255, 255, 255, 0.3);
+          cursor: pointer;
+          height: 100%;
+          text-align: center;
+          &:hover {
+            color: rgba(255, 255, 255, 0.8);
+          }
+          &.forward {
+            border-right: 1px solid #888;
+          }
+        }
       }
     }
     .main {
       width: 100%;
-      height: 500px;
+      height: calc(~"100% - 90px");
       .section {
         width: 70%;
         height: 100%;
         float: left;
-        border-right: 1px solid @border_color;
         .article {
           width: 100%;
           height: 78%;
@@ -211,16 +326,16 @@ html,body{
           .scroll_bar;
           div {
             padding: 5px;
-            &.myMsg{
+            &.myMsg {
               text-align: right;
             }
-            &.sysMsg{
+            &.sysMsg {
               text-align: center;
               font-size: 50%;
               width: 40%;
               color: #666;
               margin: 5px auto;
-              background: linear-gradient(#cf9,#9c3);
+              background: linear-gradient(#cf9, #9c3);
               box-shadow: 1px 1px 5px #000;
               border-radius: 15px;
             }
@@ -234,12 +349,12 @@ html,body{
             }
             &:not(.sysMsg) p {
               display: inline-block;
-              background: linear-gradient(#fff,#e1e1e1);
+              background: linear-gradient(#fff, #e1e1e1);
               max-width: 50%;
               border-radius: 5px;
               padding: 10px 15px;
               text-align: left;
-              line-height:22px;
+              line-height: 22px;
               img {
                 max-width: 99%;
               }
@@ -250,63 +365,91 @@ html,body{
         .content_box {
           width: 100%;
           height: 22%;
-          background: linear-gradient(#555,#222);
+          background: linear-gradient(#555, #222);
+          position: relative;
           .controls {
             height: 30px;
+            line-height: 35px;
             position: relative;
-            input,select {
-              margin-left: 5px;
-            }
-            .active{
-              background-color: #bbb;
-            }
-            .font_weight{
-              font-weight:bold;
-            }
-            .font_style{
-              font-style: italic;
-            }
-            .font_decoration{
-              text-decoration: underline;
-            }
             #img {
-              width: 42px;
-              position: relative;
-              left: -53px;
-              top: -1px;
               display: none;
             }
-            .emoji_box{
+            //表情选择框
+            .emoji_box {
               display: none;
               width: 500px;
               bottom: 35px;
               position: absolute;
               background-color: #aaa;
               box-shadow: 0 0 10px #555;
-              img{
-                margin:2px;
+              img {
+                margin: 2px;
                 padding: 2px;
                 width: 25px;
                 height: 25px;
-                &:hover{
+                &:hover {
                   background: blue;
                 }
               }
+            }
+            //选择框
+            .font_select_box {
+              position: absolute;
+              bottom: 30px;
+              border: 1px solid #666;
+              background: rgba(88, 88, 88, 0.6);
+              //display: none;
+              li {
+                color: rgba(255, 255, 255, 0.4);
+                border-top: 1px solid #666;
+                padding: 0 5px;
+                cursor: pointer;
+                height:36px;
+                &:hover {
+                  color: rgba(255, 255, 255, 0.7);
+                  background: rgba(88, 88, 88, 0.8);
+                }
+                &.active {
+                  color: #fff;
+                }
+                &:first-child {
+                  border-top: none;
+                }
+              }
+            }
+            //字体选择框
+            .font_family_box {
+              .font_select_box;
+              left: 10px;
+            }
+            //字号选择框
+            .font_size_box {
+              .font_select_box;
+              display: none;
+              left: 5px;
+            }
+            //颜色选择框
+            .font_color_box {
+              .font_select_box;
+              display: none;
             }
           }
           textarea {
             font-size: 16px;
             width: 97%;
             padding: 5px 10px;
-            margin:0 auto 3px;
+            margin: 0 auto 3px;
             border-radius: 5px;
             border: none;
-            height: 52px;
+            height: calc(~"100% - 61px");
             background: #f9f9f9;
             display: block;
           }
           .controls2 {
             overflow: hidden;
+            position: absolute;
+            bottom: 3px;
+            width: 100%;
             input {
               float: right;
               margin-right: 10px;
@@ -314,7 +457,7 @@ html,body{
               color: #fff;
               border: 1px solid #044062;
               border-radius: 4px;
-              background: -webkit-linear-gradient(top,#5f9cc5,#396b9e);
+              background: -webkit-linear-gradient(top, #5f9cc5, #396b9e);
               cursor: pointer;
               &:hover {
                 background-color: #3071a9;
@@ -343,10 +486,11 @@ html,body{
             padding: 0 15%;
             height: 30px;
             line-height: 30px;
-            background: linear-gradient(#FBEFE0,#FFF1BF);
-            border-top: 1px solid #e3e3e3;
-            &:first-child{
-              border-top:none;
+            background: linear-gradient(#eee, #ddd);
+            border-top: 1px solid #888;
+            overflow: hidden;
+            &:first-child {
+              border-top: none;
             }
           }
         }
