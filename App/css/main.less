@@ -37,10 +37,12 @@
   margin-left: 10px;
   display: inline-block;
   transition: all 0.3s linear;
+  &:hover {
+    background-image: url(../resource/icons/icon_list_red.png);
+  }
   &.active {
     background-image: url(../resource/icons/icon_list_black.png);
   }
-
 }
 
 .sprite-ban {
@@ -99,6 +101,18 @@
 
 .sprite-underline {
   background-position: -75px -95px;
+}
+
+//浮动
+.fl{
+  float: left !important;
+}
+
+.fr{
+  float: right !important;
+}
+.clearfix{
+
 }
 
 //自定滚动条样式
@@ -291,22 +305,30 @@ html, body {
         width: 200px;
         overflow: hidden;
         &:hover {
-          border: 1px solid rgba(255, 255, 255, 0.8);
+          border-color: rgba(255, 255, 255, 0.8);
+          span.forward{
+            border-right-color: rgba(255, 255, 255, 0.8);
+          }
         }
         span {
           float: left;
           width: 50%;
-          font-size: 40px;
-          font-weight: bold;
-          color: rgba(255, 255, 255, 0.3);
           cursor: pointer;
           height: 100%;
-          text-align: center;
-          &:hover {
-            color: rgba(255, 255, 255, 0.8);
-          }
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
           &.forward {
             border-right: 1px solid #888;
+            background-image: url(../resource/icons/left.png);
+            &:hover{
+              background-image: url(../resource/icons/left_active.png);
+            }
+          }
+          &.backward {
+            background-image: url(../resource/icons/right.png);
+            &:hover{
+              background-image: url(../resource/icons/right_active.png);
+            }
           }
         }
       }
@@ -398,13 +420,13 @@ html, body {
               bottom: 30px;
               border: 1px solid #666;
               background: rgba(88, 88, 88, 0.6);
-              //display: none;
+              display: none;
               li {
                 color: rgba(255, 255, 255, 0.4);
                 border-top: 1px solid #666;
                 padding: 0 5px;
                 cursor: pointer;
-                height:36px;
+                height: 36px;
                 &:hover {
                   color: rgba(255, 255, 255, 0.7);
                   background: rgba(88, 88, 88, 0.8);
@@ -417,21 +439,29 @@ html, body {
                 }
               }
             }
+            //字号选择框
+            .font_size_box {
+              .font_select_box;
+              left: 0;
+            }
             //字体选择框
             .font_family_box {
               .font_select_box;
               left: 10px;
             }
-            //字号选择框
-            .font_size_box {
-              .font_select_box;
-              display: none;
-              left: 5px;
-            }
             //颜色选择框
             .font_color_box {
               .font_select_box;
-              display: none;
+              left: 50px;
+              li {
+                width: 78px;
+                &:hover {
+                  border: 2px solid rgba(0, 0, 0, 0.5);
+                }
+                &.active {
+                  border: 2px solid #000;
+                }
+              }
             }
           }
           textarea {

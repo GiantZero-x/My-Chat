@@ -145,6 +145,9 @@ input {
   display: inline-block;
   transition: all 0.3s linear;
 }
+.sprite:hover {
+  background-image: url(../resource/icons/icon_list_red.png);
+}
 .sprite.active {
   background-image: url(../resource/icons/icon_list_black.png);
 }
@@ -191,6 +194,12 @@ input {
 }
 .sprite-underline {
   background-position: -75px -95px;
+}
+.fl {
+  float: left !important;
+}
+.fr {
+  float: right !important;
 }
 .scroll_bar::-webkit-scrollbar {
   width: 18px;
@@ -713,23 +722,31 @@ body {
   overflow: hidden;
 }
 .stage .container .header .bgChange_box:hover {
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+.stage .container .header .bgChange_box:hover span.forward {
+  border-right-color: rgba(255, 255, 255, 0.8);
 }
 .stage .container .header .bgChange_box span {
   float: left;
   width: 50%;
-  font-size: 40px;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   height: 100%;
-  text-align: center;
-}
-.stage .container .header .bgChange_box span:hover {
-  color: rgba(255, 255, 255, 0.8);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 .stage .container .header .bgChange_box span.forward {
   border-right: 1px solid #888;
+  background-image: url(../resource/icons/left.png);
+}
+.stage .container .header .bgChange_box span.forward:hover {
+  background-image: url(../resource/icons/left_active.png);
+}
+.stage .container .header .bgChange_box span.backward {
+  background-image: url(../resource/icons/right.png);
+}
+.stage .container .header .bgChange_box span.backward:hover {
+  background-image: url(../resource/icons/right_active.png);
 }
 .stage .container .main {
   width: 100%;
@@ -832,6 +849,7 @@ body {
   bottom: 30px;
   border: 1px solid #666;
   background: rgba(88, 88, 88, 0.6);
+  display: none;
 }
 .stage .container .main .section .content_box .controls .font_select_box li {
   color: rgba(255, 255, 255, 0.4);
@@ -850,11 +868,37 @@ body {
 .stage .container .main .section .content_box .controls .font_select_box li:first-child {
   border-top: none;
 }
+.stage .container .main .section .content_box .controls .font_size_box {
+  position: absolute;
+  bottom: 30px;
+  border: 1px solid #666;
+  background: rgba(88, 88, 88, 0.6);
+  display: none;
+  left: 0;
+}
+.stage .container .main .section .content_box .controls .font_size_box li {
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #666;
+  padding: 0 5px;
+  cursor: pointer;
+  height: 36px;
+}
+.stage .container .main .section .content_box .controls .font_size_box li:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(88, 88, 88, 0.8);
+}
+.stage .container .main .section .content_box .controls .font_size_box li.active {
+  color: #fff;
+}
+.stage .container .main .section .content_box .controls .font_size_box li:first-child {
+  border-top: none;
+}
 .stage .container .main .section .content_box .controls .font_family_box {
   position: absolute;
   bottom: 30px;
   border: 1px solid #666;
   background: rgba(88, 88, 88, 0.6);
+  display: none;
   left: 10px;
 }
 .stage .container .main .section .content_box .controls .font_family_box li {
@@ -874,37 +918,13 @@ body {
 .stage .container .main .section .content_box .controls .font_family_box li:first-child {
   border-top: none;
 }
-.stage .container .main .section .content_box .controls .font_size_box {
-  position: absolute;
-  bottom: 30px;
-  border: 1px solid #666;
-  background: rgba(88, 88, 88, 0.6);
-  display: none;
-  left: 5px;
-}
-.stage .container .main .section .content_box .controls .font_size_box li {
-  color: rgba(255, 255, 255, 0.4);
-  border-top: 1px solid #666;
-  padding: 0 5px;
-  cursor: pointer;
-  height: 36px;
-}
-.stage .container .main .section .content_box .controls .font_size_box li:hover {
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(88, 88, 88, 0.8);
-}
-.stage .container .main .section .content_box .controls .font_size_box li.active {
-  color: #fff;
-}
-.stage .container .main .section .content_box .controls .font_size_box li:first-child {
-  border-top: none;
-}
 .stage .container .main .section .content_box .controls .font_color_box {
   position: absolute;
   bottom: 30px;
   border: 1px solid #666;
   background: rgba(88, 88, 88, 0.6);
   display: none;
+  left: 50px;
 }
 .stage .container .main .section .content_box .controls .font_color_box li {
   color: rgba(255, 255, 255, 0.4);
@@ -922,6 +942,15 @@ body {
 }
 .stage .container .main .section .content_box .controls .font_color_box li:first-child {
   border-top: none;
+}
+.stage .container .main .section .content_box .controls .font_color_box li {
+  width: 78px;
+}
+.stage .container .main .section .content_box .controls .font_color_box li:hover {
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+.stage .container .main .section .content_box .controls .font_color_box li.active {
+  border: 2px solid #000;
 }
 .stage .container .main .section .content_box textarea {
   font-size: 16px;

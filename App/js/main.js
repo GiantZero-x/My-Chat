@@ -1,15 +1,15 @@
 /**
  * Created by GiantR on 2016/12/15.
  */
-
+'use strict';
 window.onload = function () {
     //实例并初始化my chat程序
-    var chat = new Chat();
+    let chat = new Chat();
     chat.init();
 };
 
 //定义Chat类
-var Chat = function () {
+let Chat = function () {
     this.socket = null;
 };
 
@@ -33,7 +33,8 @@ Chat.prototype = {
             TYPING_TIMER_LENGTH = 500,  //输入延时
             isShake = true,
             reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
-            currentInput = login_input = $('.login_input').focus(),    //用户名输入框
+            login_input = $('.login_input').focus(),    //用户名输入框
+            currentInput = login_input,
             login_info = $('.login_info'),  //登陆信息框
             msgArea = $('.msg'),    //信息输入框
             bgTotalNum = 6,  //背景图总数
@@ -41,6 +42,8 @@ Chat.prototype = {
             bgFlag = true;
 
         //页面事件
+        //    初始化弹窗
+        this._initialPopup();
         //    昵称设置的确定按钮
         $('.login_btn').click(function () {
             userName = login_input.val().trim();
@@ -58,46 +61,49 @@ Chat.prototype = {
             }
         });
         //    切换背景事件
-        $('.bgChange_box').on('click','span',function () {
-            if(!bgFlag){return;}
+        $('.bgChange_box').on('click', 'span', function () {
+            if (!bgFlag) {
+                return;
+            }
             bgFlag = false;
-            if(this.className == 'forward'){//向前
-                if(bgNum == 1){
+            if (this.className == 'forward') {//向前
+                if (bgNum == 1) {
                     bgNum = bgTotalNum;
-                }else{
+                } else {
                     bgNum--;
                 }
-            }else{  //向后
-                if(bgNum == bgTotalNum){
+            } else {  //向后
+                if (bgNum == bgTotalNum) {
                     bgNum = 1;
-                }else{
+                } else {
                     bgNum++;
                 }
             }
-            $('div.stage').css('background-image','url("../resource/stage_bg/' + bgNum + '.jpg")');
+            $('div.stage').css('background-image', 'url("../resource/stage_bg/' + bgNum + '.jpg")');
             setTimeout(function () {
-               bgFlag = true;
-            },500);
+                bgFlag = true;
+            }, 500);
         });
         //    字号改变
-        $('.font_size').on('change',function () {
-            font.font_size = this.value +　'px';
-            msgArea.css('font-size', font.font_size).focus();
+        $('span.sprite-size').click(function (e) {
+            _changeFontBtn(this, 'ul.font_size_box', e);
+        });
+        $('ul.font_size_box').on('click', 'li', function () {
+            _changFontBox(this, 'span.sprite-size', 'font_size');
         });
         //    字体改变
-        $('.font_family').on('change',function () {
-            font.font_family = this.value;
-            msgArea.css('font-family', font.font_family).focus();
+        $('span.sprite-family').click(function (e) {
+            _changeFontBtn(this, 'ul.font_family_box', e);
+        });
+        $('ul.font_family_box').on('click', 'li', function () {
+            _changFontBox(this, 'span.sprite-family', 'font_family');
         });
         //    颜色改变
-        $('span.sprite-color').click(function () {
-            $(this).addClass('active');
-            $('#font_color').trigger('click');
+        $('span.sprite-color').click(function (e) {
+            _changeFontBtn(this, 'ul.font_color_box', e);
         });
-        $('#font_color').change(function () {
-            $('span.sprite-color').removeClass('active');
-            font.color = this.value;
-            msgArea.css('color', font.color).focus();
+        $('ul.font_color_box').on('click', 'li', function () {
+            _changFontBox(this, 'span.sprite-color', 'color');
         });
         //    字体加粗
         $('span.sprite-bold').click(function () {
@@ -111,42 +117,43 @@ Chat.prototype = {
         $('span.sprite-underline').click(function () {
             _changeFont(this, 'text_decoration', 'underline', 'none');
         });
-        //    改变字体
-        function _changeFont(self, styleName, active, normal) {
-            $(self).toggleClass('active');
-            if ($(self).hasClass('active')) {
-                font[styleName] = active;
-            } else {
-                font[styleName] = normal;
-            }
-            msgArea.css(styleName.replace('_','-'), font[styleName]);
-        }
 
-        //    调用表情初始化方法
-        this._initialEmoji();
+
         $('span.sprite-emoji').click(function (e) {
-            $(this).addClass('active');
-            $('.emoji_box').show();
-            e.stopPropagation();
-        });
-        //    点击其他区域表情框消失
-        $('body').click(function (e) {
-            var emojiBox = $('.emoji_box');
-            if (e.target != emojiBox[0]) {
-                emojiBox.hide();
-                $('span.sprite-emoji').removeClass('active');
-            }
+            _changeFontBtn(this, 'div.emoji_box', e);
         });
         //    表情被点击事件
-        $('.emoji_box').on('click', 'img', function () {
+        $('div.emoji_box').on('click', 'img', function () {
             msgArea.focus();
             msgArea.val(msgArea.val() + '[emoji:' + this.title + ']');
+        });
+        //    点击其他区域弹框消失
+        $('body').click(function (e) {
+            var boxList = [
+                    $('div.emoji_box'),
+                    $('ul.font_family_box'),
+                    $('ul.font_size_box'),
+                    $('ul.font_color_box')
+                ],
+                btnList = [
+                    $('span.sprite-emoji'),
+                    $('span.sprite-family'),
+                    $('span.sprite-size'),
+                    $('span.sprite-color'),
+                ];
+            $.each(boxList, function (i, n) {
+                if (e.target != n[0]) {
+                    n.fadeOut('fast');
+                    btnList[i].removeClass('active')
+                }
+            });
         });
 
         //    发送图片
         $('span.sprite-pic').click(function () {
             $(this).addClass('active');
             $('#img').trigger('click');
+            return;
         });
         $('#img').on('change', function () {
             $('span.sprite-pic').removeClass('active');
@@ -163,7 +170,7 @@ Chat.prototype = {
                     //    读取成功,显示到页面并发送到服务器
                     this.value = '';
                     that.socket.emit('postImg', e.target.result);
-                    that._displayNewImg('我', e.target.result);
+                    that._displayNewMsg('我', null, null, e.target.result);
                 };
                 reader.readAsDataURL(file);
             }
@@ -175,13 +182,47 @@ Chat.prototype = {
             that.socket.emit('shake');
             setTimeout(function () {
                 $('span.sprite-shake').removeClass('active');
-            },1000);
+            }, 1000);
         });
         //    取消抖动
-        $('span.sprite-ban').on('click',function () {
+        $('span.sprite-ban').on('click', function () {
             $(this).toggleClass('active');
             isShake = !$(this).is('.active');
         });
+        //    清除历史消息
+        $('span.sprite-clear').click(function () {
+            $(this).addClass('active');
+            $('div.article').html('');
+            setTimeout(function () {
+                $('span.sprite-clear').removeClass('active');
+            }, 500);
+        });
+
+        //    按钮自身控制事件
+        function _changeFont(self, styleName, active, normal) {
+            $(self).toggleClass('active');
+            if ($(self).hasClass('active')) {
+                font[styleName] = active;
+            } else {
+                font[styleName] = normal;
+            }
+            msgArea.css(styleName.replace('_', '-'), font[styleName]).focus();
+        }
+
+        //    控制按钮事件
+        function _changeFontBtn(self, controlBox, e) {
+            $(self).addClass('active');
+            $(controlBox).fadeIn('fast');
+            e.stopPropagation();
+        }
+
+        //    控制容器事件
+        function _changFontBox(self, controlBtn, styleName) {
+            $(self).addClass('active').siblings().removeClass('active');
+            $(controlBtn).removeClass('active');
+            font[styleName] = self.innerHTML;
+            msgArea.css(styleName.replace('_', '-'), font[styleName]).focus();
+        }
 
         //    正在输入
         msgArea.on('input', function () {
@@ -293,7 +334,7 @@ Chat.prototype = {
         });
         //    接收图片
         this.socket.on('newImg', function (user, img) {
-            that._displayNewImg(user, img);
+            that._displayNewMsg(user, null, null, img);
         });
         //   监听输入状态
         this.socket.on('typing', function (user, status) {
@@ -313,18 +354,24 @@ Chat.prototype = {
         });
         //   监听抖动
         this.socket.on('shake', function (user) {
-            if(user == userName){user = '我'}
+            if (user == userName) {
+                user = '我'
+            }
             that._displayNewMsg('系统', user + ' 发送了一个窗口抖动');
-            if(!isShake){return}
+            if (!isShake) {
+                return
+            }
             $('.container').addClass('shake');
             setTimeout(function () {
                 $('.container').removeClass('shake');
             }, 1000);
-            if(user == userName){return}
+            if (user == userName) {
+                return
+            }
         });
     },
 //    显示新消息
-    _displayNewMsg: function (user, msg, font) {
+    _displayNewMsg: function (user, msg, font, img) {
         var container = $('.article'),
             userColor = '',
             date = new Date().toLocaleString(),
@@ -343,12 +390,16 @@ Chat.prototype = {
         } else if (user == '我') {
             userColor = 'font_purple';
             div.className += ' myMsg';
-        } else {
-            userColor = '';
         }
         div.className += ' newMsg';
-
-        div.innerHTML = `
+        if (img) {
+            div.innerHTML = `
+              <h4 class="${userColor}">${user}<small>${date}</small></h4>
+              <p>
+                <a href="${img}" target="_blank" title="查看原图"><img src="${img}"></a>
+              </p>`;
+        } else {
+            div.innerHTML = `
               <h4 class="${userColor}">${user}<small>${date}</small></h4>
               <p style="color:${font.color};
                         font-weight:${font.font_weight};
@@ -358,11 +409,13 @@ Chat.prototype = {
                         font-family: ${font.font_family};">
                 ${this._showEmoji(msg)}
               </p>`;
+        }
+
         container.append(div);
         container[0].scrollTop = container[0].scrollHeight;
         setTimeout(function () {
             $(div).removeClass(' newMsg');
-        },500);
+        }, 500);
     },
 //    更新用户列表
     _dispalyUsers: function (users, me) {
@@ -374,36 +427,33 @@ Chat.prototype = {
         container.html(html);
         $('.count span').html(users.length);
     },
-//    显示新图片
-    _displayNewImg: function (user, img) {
-        var container = $('.article'),
-            Msg = container.html(),
-            date = new Date().toLocaleString();
-        if (user == '系统') {
-            userColor = 'font_red';
-        } else if (user == '我') {
-            userColor = 'font_green';
-        } else {
-            userColor = 'font_blue';
-        }
-        Msg +=
-            `<div>
-              <h4 class="${userColor}">${user}<small>${date}</small></h4>
-              <p>
-                <a href="${img}" target="_blank" title="查看原图"><img src="${img}"></a>
-              </p>
-            </div>`;
-        container.html(Msg);
-        container[0].scrollTop = container[0].scrollHeight;
-    },
-//    初始化表情
-    _initialEmoji: function () {
-        var emojiBox = $('.emoji_box'),
+//    初始化弹窗
+    _initialPopup: function () {
+        //Emoji
+        let emojiBox = $('.emoji_box'),
             html = '';
-        for (var i = 69; i > 0; i--) {
+        for (let i = 69; i > 0; i--) {
             html += `<img src="../resource/emoji/${i}.gif" title="${i}">`;
         }
         emojiBox.html(html);
+        //color
+        let colorLiList = $('ul.font_color_box li');
+        for (let i = 0; i < colorLiList.length; i++) {
+            let li = colorLiList[i];
+            $(li).css({'background-color': li.innerHTML, 'color': li.innerHTML});
+        }
+        //font-family
+        let famLiList = $('ul.font_family_box li');
+        for (let i = 0; i < famLiList.length; i++) {
+            let li = famLiList[i];
+            $(li).css({'font-family': li.innerHTML});
+        }
+        //font-size
+        let sizeLiList = $('ul.font_size_box li');
+        for (let i = 0; i < sizeLiList.length; i++) {
+            let li = sizeLiList[i];
+            $(li).css({'font-size': li.innerHTML});
+        }
     },
 //    显示表情
     _showEmoji: function (msg) {
