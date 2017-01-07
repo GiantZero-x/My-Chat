@@ -17,8 +17,15 @@ let Chat = function () {
 Chat.prototype = {
 //  初始化程序
     init: function () {
+        //初始化常量
+        const TYPING_TIMER_LENGTH = 500,  //输入延时
+            reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
+            login_input = $('.login_input').focus(),    //用户名输入框
+            login_info = $('.login_info'),  //登陆信息框
+            msgArea = $('.msg'),    //信息输入框
+            bgTotalNum = 6;  //背景图总数
         //初始化变量
-        var that = this,
+        let that = this,
             userName = '',  //用户名
             font = {
                 color: '#000', //颜色
@@ -30,22 +37,15 @@ Chat.prototype = {
             },
             typing = false, //输入状态
             lastTypingTime, //上次输入时间
-            TYPING_TIMER_LENGTH = 500,  //输入延时
             isShake = true,
-            reg = /^[\w\u4e00-\u9fa5]*$/,  //用户名匹配正则
-            login_input = $('.login_input').focus(),    //用户名输入框
             currentInput = login_input,
-            login_info = $('.login_info'),  //登陆信息框
-            msgArea = $('.msg'),    //信息输入框
-            bgTotalNum = 6,  //背景图总数
             bgNum = 1,
             bgFlag = true;
-
         //页面事件
         //    初始化弹窗
         this._initialPopup();
         //    昵称设置的确定按钮
-        $('.login_btn').click(function () {
+        $('input.login_btn').click(function () {
             userName = login_input.val().trim();
             //   检查昵称输入框是否为空
             if (!userName) {
@@ -55,13 +55,13 @@ Chat.prototype = {
             } else if (!isNaN(userName[0])) {
                 login_info.html('数字不可以打头阵');
             } else if (!reg.test(userName)) {
-                login_info.html('除了字母、汉字或数字其他统统不要');
+                login_info.html('除了字母、汉字、数字或_ 其他统统不要');
             } else {
                 that.socket.emit('login', userName);
             }
         });
         //    切换背景事件
-        $('.bgChange_box').on('click', 'span', function () {
+        $('div.bgChange_box').on('click', 'span', function () {
             if (!bgFlag) {
                 return;
             }
@@ -117,49 +117,24 @@ Chat.prototype = {
         $('span.sprite-underline').click(function () {
             _changeFont(this, 'text_decoration', 'underline', 'none');
         });
-
-
+        //    表情被点击
         $('span.sprite-emoji').click(function (e) {
             _changeFontBtn(this, 'div.emoji_box', e);
         });
-        //    表情被点击事件
         $('div.emoji_box').on('click', 'img', function () {
             msgArea.focus();
             msgArea.val(msgArea.val() + '[emoji:' + this.title + ']');
         });
-        //    点击其他区域弹框消失
-        $('body').click(function (e) {
-            var boxList = [
-                    $('div.emoji_box'),
-                    $('ul.font_family_box'),
-                    $('ul.font_size_box'),
-                    $('ul.font_color_box')
-                ],
-                btnList = [
-                    $('span.sprite-emoji'),
-                    $('span.sprite-family'),
-                    $('span.sprite-size'),
-                    $('span.sprite-color'),
-                ];
-            $.each(boxList, function (i, n) {
-                if (e.target != n[0]) {
-                    n.fadeOut('fast');
-                    btnList[i].removeClass('active')
-                }
-            });
-        });
-
         //    发送图片
         $('span.sprite-pic').click(function () {
             $(this).addClass('active');
             $('#img').trigger('click');
-            return;
         });
         $('#img').on('change', function () {
             $('span.sprite-pic').removeClass('active');
             if (this.files.length != 0) {
                 //获取文件并用filereader进行读取
-                var file = this.files[0],
+                let file = this.files[0],
                     reader = new FileReader();
                 if (!reader) {
                     that._displayNewMsg('系统', '当前浏览器不支持文件读取');
@@ -175,7 +150,6 @@ Chat.prototype = {
                 reader.readAsDataURL(file);
             }
         });
-
         //    窗口抖动
         $('span.sprite-shake').click(function () {
             $(this).addClass('active');
@@ -198,6 +172,28 @@ Chat.prototype = {
             }, 500);
         });
 
+        //    点击其他区域弹框消失
+        $('body').click(function (e) {
+            const boxList = [
+                    $('div.emoji_box'),
+                    $('ul.font_family_box'),
+                    $('ul.font_size_box'),
+                    $('ul.font_color_box')
+                ],
+                btnList = [
+                    $('span.sprite-emoji'),
+                    $('span.sprite-family'),
+                    $('span.sprite-size'),
+                    $('span.sprite-color'),
+                ];
+            $.each(boxList, function (i, n) {
+                if (e.target != n[0]) {
+                    n.fadeOut('fast');
+                    btnList[i].removeClass('active')
+                }
+            });
+        });
+
         //    按钮自身控制事件
         function _changeFont(self, styleName, active, normal) {
             $(self).toggleClass('active');
@@ -208,14 +204,12 @@ Chat.prototype = {
             }
             msgArea.css(styleName.replace('_', '-'), font[styleName]).focus();
         }
-
         //    控制按钮事件
         function _changeFontBtn(self, controlBox, e) {
             $(self).addClass('active');
             $(controlBox).fadeIn('fast');
             e.stopPropagation();
         }
-
         //    控制容器事件
         function _changFontBox(self, controlBtn, styleName) {
             $(self).addClass('active').siblings().removeClass('active');
@@ -226,7 +220,7 @@ Chat.prototype = {
 
         //    正在输入
         msgArea.on('input', function () {
-            var self = that;
+            const self = that;
             if (!typing) {
                 typing = true;
                 self.socket.emit('typing', '1');
@@ -234,7 +228,7 @@ Chat.prototype = {
             lastTypingTime = (new Date()).getTime();
 
             setTimeout(function () {
-                var typingTimer = (new Date()).getTime(),
+                let typingTimer = (new Date()).getTime(),
                     timeDiff = typingTimer - lastTypingTime;
                 if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
                     self.socket.emit('typing', '0');
@@ -243,16 +237,16 @@ Chat.prototype = {
             }, TYPING_TIMER_LENGTH);
         });
         //    退出登陆
-        $('.close').click(function () {
-            location.reload('true');
+        $('input.close').click(function () {
+            location.reload(true);
         });
         //    清空输入
-        $('.clear').click(function () {
+        $('input.clear').click(function () {
             msgArea.val('').focus();
         });
         //    发送消息按钮
-        $('.sent').click(function () {
-            var msg = msgArea.val();
+        $('input.sent').click(function () {
+            let msg = msgArea.val();
             msgArea.val('');
             msgArea.focus();
             if (msg.trim().length != 0) {
@@ -265,17 +259,17 @@ Chat.prototype = {
 
         login_input.keydown(function (e) {
             if (e.keyCode == 13) {
-                $('.login_btn').trigger('click');
+                $('input.login_btn').trigger('click');
                 e.preventDefault();
             }
         });
         msgArea.keydown(function (e) {
             if (e.keyCode == 13) {
-                $('.sent').trigger('click');
+                $('input.sent').trigger('click');
                 e.preventDefault();
             }
         });
-        $('.modal').click(function () {
+        $('div.modal').click(function () {
             login_input.focus();
         });
         $(window).keydown(function () {
@@ -293,18 +287,18 @@ Chat.prototype = {
             //    连接到服务器后显示昵称输入框
             login_info.html('已连接');
             if (userName) {
-                $('.login_btn').trigger('click');
+                $('input.login_btn').trigger('click');
                 return;
             }
-            $('.login_form input').removeAttr('disabled');
+            $('div.login_form input').removeAttr('disabled');
             login_input.focus();
         });
         //    连接断开
         this.socket.on('disconnect', function () {
             login_info.html('<span>正在重新连接</span>');
-            $('.login_form input').attr('disabled', 'disabled');
-            $('.modal').fadeIn();
-            $('.stage').fadeOut();
+            $('div.login_form input').attr('disabled', 'disabled');
+            $('div.modal').fadeIn();
+            $('div.stage').fadeOut();
         });
         //    若昵称已存在
         this.socket.on('nameExisted', function () {
@@ -312,21 +306,21 @@ Chat.prototype = {
         });
         //    昵称可用
         this.socket.on('loginSucc', function () {
-            $('.article').html('');
+            $('div.article').html('');
             document.title = 'Chat | ' + userName;
             $('span.title').html('My Chat - <small>' + userName + '</small>');
-            $('.modal').fadeOut();
-            $('.stage').fadeIn();
+            $('div.modal').fadeOut();
+            $('div.stage').fadeIn();
             currentInput = msgArea;
             msgArea.focus();
         });
         //    接收系统信息
         this.socket.on('sys', function (nickName, users, type) {
             //    判断用户是连接还是离开以显示不同的信息
-            var msg = nickName + (type == 'login' ? ' 已加入' : ' 已离开');
+            let msg = nickName + (type == 'login' ? ' 已加入' : ' 已离开');
             that._displayNewMsg('系统', msg);
             //    将在线用户显示在侧边栏
-            that._dispalyUsers(users, userName);
+            that._displayUsers(users, userName);
         });
         //    接收新消息
         this.socket.on('newMsg', function (user, msg, font) {
@@ -339,8 +333,8 @@ Chat.prototype = {
         //   监听输入状态
         this.socket.on('typing', function (user, status) {
             // 正在输入
-            $('.users li').each(function (i, e) {
-                var item = e.textContent.split(' ')[0];
+            $('ul.users li').each(function (i, e) {
+                let item = e.textContent.split(' ')[0];
                 if (item == user) {
                     if (status == '1') {
                         $(e).find('span').fadeIn();
@@ -361,18 +355,43 @@ Chat.prototype = {
             if (!isShake) {
                 return
             }
-            $('.container').addClass('shake');
+            $('div.container').addClass('shake');
             setTimeout(function () {
-                $('.container').removeClass('shake');
+                $('div.container').removeClass('shake');
             }, 1000);
-            if (user == userName) {
-                return
-            }
         });
+    },
+//    初始化弹窗
+    _initialPopup: function () {
+        //Emoji
+        const emojiBox = $('div.emoji_box'),
+            colorLiList = $('ul.font_color_box li'),
+            famLiList = $('ul.font_family_box li'),
+            sizeLiList = $('ul.font_size_box li');
+        let html = '';
+        for (let i = 69; i > 0; i--) {
+            html += `<img src="../resource/emoji/${i}.gif" title="${i}">`;
+        }
+        emojiBox.html(html);
+        //color
+        for (let i = 0; i < colorLiList.length; i++) {
+            let li = colorLiList[i];
+            $(li).css({'background-color': li.innerHTML, 'color': li.innerHTML});
+        }
+        //font-family
+        for (let i = 0; i < famLiList.length; i++) {
+            let li = famLiList[i];
+            $(li).css({'font-family': li.innerHTML});
+        }
+        //font-size
+        for (let i = 0; i < sizeLiList.length; i++) {
+            let li = sizeLiList[i];
+            $(li).css({'font-size': li.innerHTML});
+        }
     },
 //    显示新消息
     _displayNewMsg: function (user, msg, font, img) {
-        var container = $('.article'),
+        let container = $('.article'),
             userColor = '',
             date = new Date().toLocaleString(),
             div = document.createElement('div');
@@ -418,46 +437,18 @@ Chat.prototype = {
         }, 500);
     },
 //    更新用户列表
-    _dispalyUsers: function (users, me) {
-        var container = $('.users');
-        var html = '';
+    _displayUsers: function (users, me) {
+        const container = $('.users');
+        let html = '';
         for (var i = 0; i < users.length; i++) {
             html += users[i] == me ? `<li class="font_darkcyan">${users[i]}</li>` : `<li><a href="#">${users[i]}<span  style="display:none" class="font_cornflowerblue"> (正在输入)</span></a></li>`;
         }
         container.html(html);
-        $('.count span').html(users.length);
-    },
-//    初始化弹窗
-    _initialPopup: function () {
-        //Emoji
-        let emojiBox = $('.emoji_box'),
-            html = '';
-        for (let i = 69; i > 0; i--) {
-            html += `<img src="../resource/emoji/${i}.gif" title="${i}">`;
-        }
-        emojiBox.html(html);
-        //color
-        let colorLiList = $('ul.font_color_box li');
-        for (let i = 0; i < colorLiList.length; i++) {
-            let li = colorLiList[i];
-            $(li).css({'background-color': li.innerHTML, 'color': li.innerHTML});
-        }
-        //font-family
-        let famLiList = $('ul.font_family_box li');
-        for (let i = 0; i < famLiList.length; i++) {
-            let li = famLiList[i];
-            $(li).css({'font-family': li.innerHTML});
-        }
-        //font-size
-        let sizeLiList = $('ul.font_size_box li');
-        for (let i = 0; i < sizeLiList.length; i++) {
-            let li = sizeLiList[i];
-            $(li).css({'font-size': li.innerHTML});
-        }
+        $('p.count span').html(users.length);
     },
 //    显示表情
     _showEmoji: function (msg) {
-        var match, result = msg,
+        let match, result = msg,
             reg = /\[emoji:\d+\]/g,
             emojiIndex,
             totalEmojiNum = $('.emoji_box').children().length;
