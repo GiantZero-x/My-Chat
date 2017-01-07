@@ -1,7 +1,8 @@
 /**
  * Created by GiantR on 2016/12/15.
  */
-var express = require('express'),
+'use strict';
+let express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
