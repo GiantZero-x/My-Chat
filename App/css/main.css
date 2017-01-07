@@ -128,6 +128,33 @@ input {
 .font_blue {
   color: blue;
 }
+.font_purple {
+  color: purple;
+}
+.font_darkcyan {
+  color: darkcyan;
+}
+.font_cornflowerblue {
+  color: cornflowerblue;
+}
+.scroll_bar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.scroll_bar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scroll_bar::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+.scroll_bar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.scroll_bar::-webkit-scrollbar-button {
+  background-color: #ddd;
+}
 .shake {
   -webkit-animation: tada 1s ease-in-out;
   -moz-animation: tada 1s ease-in-out;
@@ -592,16 +619,16 @@ body {
   background-size: 100% 100%;
 }
 .stage .container {
-  background: rgba(214, 214, 214, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   width: 80%;
   margin: 10px auto 0;
   min-width: 900px;
-  border: 1px solid #ccc;
   border-radius: 5px;
+  overflow: hidden;
 }
 .stage .container .header {
-  border-bottom: 1px solid #ccc;
   padding: 5px;
+  background: linear-gradient(#555, #222);
 }
 .stage .container .header img {
   vertical-align: top;
@@ -611,6 +638,7 @@ body {
   display: inline-block;
   font-size: 30px;
   line-height: 80px;
+  color: #fff;
 }
 .stage .container .main {
   width: 100%;
@@ -624,13 +652,30 @@ body {
 }
 .stage .container .main .section .article {
   width: 100%;
-  height: 70%;
-  overflow-x: hidden;
+  height: 78%;
   overflow-y: auto;
-  border-bottom: 1px solid #ccc;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.stage .container .main .section .article::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.stage .container .main .section .article::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+.stage .container .main .section .article::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.stage .container .main .section .article::-webkit-scrollbar-button {
+  background-color: #ddd;
 }
 .stage .container .main .section .article div {
   padding: 5px;
+}
+.stage .container .main .section .article div.myMsg {
+  text-align: right;
 }
 .stage .container .main .section .article div.sysMsg {
   text-align: center;
@@ -638,25 +683,34 @@ body {
   width: 40%;
   color: #666;
   margin: 5px auto;
-  background-color: #C0F1F9;
+  background: linear-gradient(#cf9, #9c3);
+  box-shadow: 1px 1px 5px #000;
   border-radius: 15px;
 }
 .stage .container .main .section .article div h4 {
   margin-bottom: 5px;
+  text-shadow: 1px 1px 6px #fff;
 }
 .stage .container .main .section .article div h4 small {
   margin-left: 1em;
   font-size: 0.8em;
 }
-.stage .container .main .section .article div p {
-  padding-left: 15px;
+.stage .container .main .section .article div:not(.sysMsg) p {
+  display: inline-block;
+  background: linear-gradient(#fff, #e1e1e1);
+  max-width: 50%;
+  border-radius: 5px;
+  padding: 10px 15px;
+  text-align: left;
+  line-height: 22px;
 }
-.stage .container .main .section .article div p img {
+.stage .container .main .section .article div:not(.sysMsg) p img {
   max-width: 99%;
 }
 .stage .container .main .section .content_box {
   width: 100%;
-  height: 30%;
+  height: 22%;
+  background: linear-gradient(#555, #222);
 }
 .stage .container .main .section .content_box .controls {
   height: 30px;
@@ -704,11 +758,14 @@ body {
 }
 .stage .container .main .section .content_box textarea {
   font-size: 16px;
-  width: 100%;
+  width: 97%;
   padding: 5px 10px;
+  margin: 0 auto 3px;
+  border-radius: 5px;
   border: none;
-  height: 85px;
-  background-color: transparent;
+  height: 52px;
+  background: #f9f9f9;
+  display: block;
 }
 .stage .container .main .section .content_box .controls2 {
   overflow: hidden;
@@ -718,9 +775,9 @@ body {
   margin-right: 10px;
   padding: 2px 20px;
   color: #fff;
-  border: 1px solid #357ebd;
+  border: 1px solid #044062;
   border-radius: 4px;
-  background-color: #428bca;
+  background: -webkit-linear-gradient(top, #5f9cc5, #396b9e);
   cursor: pointer;
 }
 .stage .container .main .section .content_box .controls2 input:hover {
@@ -733,16 +790,22 @@ body {
   float: left;
   overflow-x: hidden;
   overflow-y: auto;
+  background: #fff;
 }
 .stage .container .main .aside .count {
-  margin: 5px 10px;
+  margin: 5px 10px 0;
   padding: 10px 0;
   text-align: center;
   border-bottom: 1px solid #ccc;
 }
-.stage .container .main .aside .users {
-  padding: 0 15%;
-}
 .stage .container .main .aside .users li {
-  margin-top: 5px;
+  cursor: pointer;
+  padding: 0 15%;
+  height: 30px;
+  line-height: 30px;
+  background: linear-gradient(#FBEFE0, #FFF1BF);
+  border-top: 1px solid #e3e3e3;
+}
+.stage .container .main .aside .users li:first-child {
+  border-top: none;
 }

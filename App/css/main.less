@@ -15,6 +15,46 @@
   color: blue;
 }
 
+.font_purple {
+  color: purple;
+}
+
+.font_darkcyan{
+  color: darkcyan;
+}
+
+.font_cornflowerblue{
+  color: cornflowerblue;
+}
+
+//自定滚动条样式
+.scroll_bar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  // 设置垂直滚动条的宽度和水平滚动条的高度
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  // 设置滚动条的滑轨
+  &::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+  // 滑块
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  // 滑轨两头的监听按钮
+  &::-webkit-scrollbar-button {
+    background-color: #ddd;
+  }
+  // 横向滚动条和纵向滚动条相交处尖角
+  &::-webkit-scrollbar-corner {
+    //background-color: black;
+  }
+}
+
 //文字阴影,可以指定多组阴影
 //@right_left1 右边阴影为正数 左边负数
 //@bottom_top1 下边阴影为正数 上边负数
@@ -134,16 +174,16 @@ html,body{
   background-image: url('../resource/stage_bg/1.jpg');
   background-size: 100% 100%;
   .container {
-    background: rgba(214,214,214,0.7);
+    background: rgba(0,0,0,0.5);
     width: 80%;
     margin: 10px auto 0;
     min-width:900px;
-    border: 1px solid @border_color;
     border-radius: 5px;
+    overflow: hidden;
 
     .header {
-      border-bottom: 1px solid @border_color;
       padding: 5px;
+      background: linear-gradient(#555,#222);
       img {
         vertical-align: top;
         border-radius: 5px;
@@ -152,6 +192,7 @@ html,body{
         display: inline-block;
         font-size: 30px;
         line-height: 80px;
+        color: #fff;
       }
     }
     .main {
@@ -164,30 +205,41 @@ html,body{
         border-right: 1px solid @border_color;
         .article {
           width: 100%;
-          height: 70%;
+          height: 78%;
           overflow-x: hidden;
           overflow-y: auto;
-          border-bottom: 1px solid @border_color;
+          .scroll_bar;
           div {
             padding: 5px;
+            &.myMsg{
+              text-align: right;
+            }
             &.sysMsg{
               text-align: center;
               font-size: 50%;
               width: 40%;
               color: #666;
               margin: 5px auto;
-              background-color: #C0F1F9;
+              background: linear-gradient(#cf9,#9c3);
+              box-shadow: 1px 1px 5px #000;
               border-radius: 15px;
             }
             h4 {
               margin-bottom: 5px;
+              text-shadow: 1px 1px 6px #fff;
               small {
                 margin-left: 1em;
                 font-size: 0.8em;
               }
             }
-            p {
-              padding-left: 15px;
+            &:not(.sysMsg) p {
+              display: inline-block;
+              background: linear-gradient(#fff,#e1e1e1);
+              max-width: 50%;
+              border-radius: 5px;
+              padding: 10px 15px;
+              text-align: left;
+              line-height:22px;
               img {
                 max-width: 99%;
               }
@@ -197,7 +249,8 @@ html,body{
         }
         .content_box {
           width: 100%;
-          height: 30%;
+          height: 22%;
+          background: linear-gradient(#555,#222);
           .controls {
             height: 30px;
             position: relative;
@@ -243,11 +296,14 @@ html,body{
           }
           textarea {
             font-size: 16px;
-            width: 100%;
+            width: 97%;
             padding: 5px 10px;
+            margin:0 auto 3px;
+            border-radius: 5px;
             border: none;
-            height: 85px;
-            background-color: transparent;
+            height: 52px;
+            background: #f9f9f9;
+            display: block;
           }
           .controls2 {
             overflow: hidden;
@@ -256,9 +312,9 @@ html,body{
               margin-right: 10px;
               padding: 2px 20px;
               color: #fff;
-              border: 1px solid #357ebd;
+              border: 1px solid #044062;
               border-radius: 4px;
-              background-color: #428bca;
+              background: -webkit-linear-gradient(top,#5f9cc5,#396b9e);
               cursor: pointer;
               &:hover {
                 background-color: #3071a9;
@@ -274,16 +330,24 @@ html,body{
         float: left;
         overflow-x: hidden;
         overflow-y: auto;
+        background: #fff;
         .count {
-          margin: 5px 10px;
+          margin: 5px 10px 0;
           padding: 10px 0;
           text-align: center;
           border-bottom: 1px solid @border_color;
         }
         .users {
-          padding: 0 15%;
           li {
-            margin-top: 5px;
+            cursor: pointer;
+            padding: 0 15%;
+            height: 30px;
+            line-height: 30px;
+            background: linear-gradient(#FBEFE0,#FFF1BF);
+            border-top: 1px solid #e3e3e3;
+            &:first-child{
+              border-top:none;
+            }
           }
         }
       }

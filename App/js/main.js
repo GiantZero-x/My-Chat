@@ -301,11 +301,13 @@ Chat.prototype = {
                 font_family: 'Microsoft Yahei' //字体
             }
         } else if (user == '我') {
-            userColor = 'font_green';
+            userColor = 'font_purple';
+            div.className += ' myMsg';
         } else {
-            userColor = 'font_blue';
+            userColor = '';
         }
         div.className += ' newMsg';
+
         div.innerHTML = `
               <h4 class="${userColor}">${user}<small>${date}</small></h4>
               <p style="color:${font.color};
@@ -327,7 +329,7 @@ Chat.prototype = {
         var container = $('.users');
         var html = '';
         for (var i = 0; i < users.length; i++) {
-            html += users[i] == me ? `<li class="font_red">${users[i]}</li>` : `<li><a href="#">${users[i]}<span  style="display:none"> (正在输入)</span></a></li>`;
+            html += users[i] == me ? `<li class="font_darkcyan">${users[i]}</li>` : `<li><a href="#">${users[i]}<span  style="display:none" class="font_cornflowerblue"> (正在输入)</span></a></li>`;
         }
         container.html(html);
         $('.count span').html(users.length);
