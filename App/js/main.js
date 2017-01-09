@@ -129,6 +129,9 @@ Chat.prototype = {
         $('span.sprite-pic').click(function () {
             $(this).addClass('active');
             $('#img').trigger('click');
+            setTimeout(function () {
+                $('span.sprite-pic').removeClass('active');
+            }, 1000);
         });
         $('#img').on('change', function () {
             $('span.sprite-pic').removeClass('active');
@@ -438,9 +441,9 @@ Chat.prototype = {
     },
 //    更新用户列表
     _displayUsers: function (users, me) {
-        const container = $('.users');
+        const container = $('ul.users');
         let html = '';
-        for (var i = 0; i < users.length; i++) {
+        for (let i = 0; i < users.length; i++) {
             html += users[i] == me ? `<li class="font_darkcyan">${users[i]}</li>` : `<li><a href="#">${users[i]}<span  style="display:none" class="font_cornflowerblue"> (正在输入)</span></a></li>`;
         }
         container.html(html);
@@ -451,7 +454,7 @@ Chat.prototype = {
         let match, result = msg,
             reg = /\[emoji:\d+\]/g,
             emojiIndex,
-            totalEmojiNum = $('.emoji_box').children().length;
+            totalEmojiNum = $('div.emoji_box').children().length;
         while (match = reg.exec(msg)) {
             emojiIndex = match[0].slice(7, -1);
             //判断是否存在这个这个表情

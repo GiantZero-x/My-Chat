@@ -6,7 +6,7 @@ let express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    port = 80,
+    port = 3000,
     users = []; //保存所有在线用户的昵称
 //socket配置
 io.set('log level',0);
