@@ -81,7 +81,7 @@
                         <input id="img" type="file" accept="image/*">
                         <span class="sprite sprite-shake" title="窗口抖动"></span>
                         <span class="sprite sprite-ban" title="不接收抖动"></span>
-                        <span class="sprite sprite-clear" title="清除历史消息"></span>
+                        <span class="sprite sprite-clear" title="收起历史消息"></span>
                     </div>
                     <textarea class="msg"></textarea>
                     <p class="controls2">
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="aside">
-                <p class="count">当前共 <strong>5</strong> 人在线</p>
+                <p class="count">当前共 <strong></strong> 人在线</p>
                 <ul class="users"></ul>
             </div>
         </div>
@@ -112,6 +112,11 @@
         </div>
     </div>
 </div>
+
+<!--音效-->
+<audio class="audio_msg" src="resource/media/msg.wav" autoplay><!--消息--></audio>
+<audio class="audio_global" src="resource/media/Global.wav"><!--上线--></audio>
+<audio class="audio_sys" src="resource/media/system.wav"><!--系统消息--></audio>
 
 <script src="js/jquery-3.1.1.js"></script>
 <script src="/socket.io/socket.io.js"></script>

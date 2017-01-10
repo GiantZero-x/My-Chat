@@ -9,7 +9,7 @@ let express = require('express'),
     port = 3000,
     users = []; //保存所有在线用户的昵称
 //socket配置
-io.set('log level',0);
+io.set('log level', 0);
 server.listen(port, function () {
     console.log('服务器开启,正在监听 ' + port + ' 端口.');
 });
@@ -39,18 +39,18 @@ io.on('connection', function (socket) {
     });
 //    接收新消息
     socket.on('postMsg', function (msg, font) {
-        socket.broadcast.emit('newMsg', socket.nickName, msg, font);
+        io.sockets.emit('newMsg', socket.nickName, msg, font);
     });
 //    接收图片消息
     socket.on('postImg', function (data) {
-        socket.broadcast.emit('newImg', socket.nickName, data);
+        io.sockets.emit('newImg', socket.nickName, data);
     });
 //    接收用户输入状态
     socket.on('typing', function (status) {
         socket.broadcast.emit('typing', socket.nickName, status);
     });
 //    接收用户抖动请求
-    socket.on('shake',function () {
-        io.sockets.emit('shake',socket.nickName);
+    socket.on('shake', function () {
+        io.sockets.emit('shake', socket.nickName);
     });
 });
