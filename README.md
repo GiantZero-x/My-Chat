@@ -18,5 +18,5 @@ How to run
 4. finnaly, open your browser and visit `localhost:3000`
 
 若出现提示
-`DeprecationWarning: process.EventEmitter is deprecated. use require('events') instead.`, 将 `socket.io/lib` 目录js文件中的 `process.EventEmitter` 替换成 `require('events')`
+`DeprecationWarning: process.EventEmitter is deprecated. use require('events') instead.`, 将 `socket.io/lib` 目录js文件中的 `process.EventEmitter` 替换成 `require('events')`.
 
